@@ -109,6 +109,27 @@
     syncThemeButtons(document.documentElement.dataset.theme || 'twilight');
   }
 
+  function installSiteChrome() {
+    const iconHref = 'site-icon.png';
+
+    ['icon', 'shortcut icon', 'apple-touch-icon'].forEach(rel => {
+      let link = document.head.querySelector(`link[rel="${rel}"]`);
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = rel;
+        document.head.append(link);
+      }
+      link.href = iconHref;
+      if (rel !== 'apple-touch-icon') link.type = 'image/png';
+    });
+
+    document.querySelectorAll('[data-route="members"] > span').forEach(icon => {
+      icon.textContent = '👥';
+      icon.setAttribute('aria-hidden', 'true');
+    });
+  }
+
   applyTheme(savedTheme(), { save: false });
   installThemeSettings();
+  installSiteChrome();
 })();
