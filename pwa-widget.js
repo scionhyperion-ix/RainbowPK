@@ -25,8 +25,13 @@
     }, { once: true });
   }
 
+  function hasNativeBridge() {
+    return typeof window.RainbowAndroid?.setWidgetAccess === 'function';
+  }
+
   function isStandalone() {
-    return window.matchMedia('(display-mode: standalone)').matches ||
+    return hasNativeBridge() ||
+      window.matchMedia('(display-mode: standalone)').matches ||
       window.navigator.standalone === true;
   }
 
@@ -40,6 +45,14 @@
 
   function isRequested() {
     return localStorage.getItem(WIDGET_PREF_KEY) === 'true';
+  }
+
+  function syncNativeWidget(enabled) {
+    if (!hasNativeBridge()) return;
+    const token = localStorage.getItem(PERSISTENT_TOKEN_KEY) || '';
+    try {
+      window.RainbowAndroid.setWidgetAccess(token, Boolean(enabled && token));
+    } catch (_) {}
   }
 
   function requirementRow(id, title, detail) {
@@ -86,13 +99,17 @@
 
     const intro = document.createElement('p');
     intro.className = 'widget-settings-copy';
-    intro.textContent = 'Prepare Rainbow for the native Android Current Front widget. The installed web app cannot add an Android launcher widget by itself.';
+    intro.textContent = hasNativeBridge()
+      ? 'Enable the native Android Home Screen widget for your current PluralKit fronters.'
+      : 'Widget setup is available in the native Rainbow Android app. A normal installed web app cannot register an Android launcher widget.';
 
     const requirements = document.createElement('div');
     requirements.className = 'widget-requirements';
     requirements.append(
-      requirementRow('persistent', 'Keep me signed in', 'Your PluralKit token must be remembered on this browser.'),
-      requirementRow('installed', 'Rainbow installed as an app', 'Open Rainbow from its installed Home Screen app, not a normal browser tab.'),
+      requirementRow('persistent', 'Keep me signed in', 'Your PluralKit token must be remembered on this device.'),
+      requirementRow('installed', 'Rainbow installed as an app', hasNativeBridge()
+        ? 'You are using the native Rainbow Android app.'
+        : 'Open Rainbow from its installed app, not a normal browser tab.'),
       requirementRow('connected', 'Online and connected', 'Rainbow must currently be online and connected to PluralKit.')
     );
 
@@ -102,7 +119,7 @@
     const toggleCopy = document.createElement('div');
     toggleCopy.className = 'widget-toggle-copy';
     const toggleTitle = document.createElement('strong');
-    toggleTitle.textContent = 'Prepare widget access';
+    toggleTitle.textContent = hasNativeBridge() ? 'Enable Home Screen widget' : 'Prepare widget access';
     const toggleStatus = document.createElement('small');
     toggleStatus.id = 'currentFrontWidgetStatus';
     toggleStatus.textContent = 'Complete the requirements above first.';
@@ -110,7 +127,7 @@
 
     const toggleLabel = document.createElement('label');
     toggleLabel.className = 'widget-switch';
-    toggleLabel.setAttribute('aria-label', 'Prepare Current Front widget access');
+    toggleLabel.setAttribute('aria-label', 'Enable Current Front widget');
     const checkbox = document.createElement('input');
     checkbox.id = 'currentFrontWidgetToggle';
     checkbox.type = 'checkbox';
@@ -122,7 +139,7 @@
 
     const privacy = document.createElement('p');
     privacy.className = 'widget-privacy-note';
-    privacy.textContent = 'Privacy note: the future Android Home Screen widget can make current fronter names and images visible outside Rainbow. This switch only saves permission for that native widget. It does not create a launcher widget by itself.';
+    privacy.textContent = 'Privacy note: the Android Home Screen widget can make current fronter names visible outside Rainbow. Only enable this on a phone you trust.';
 
     panel.append(eyebrow, title, intro, requirements, toggleRow, privacy);
 
@@ -134,7 +151,6 @@
 
     checkbox.addEventListener('change', () => {
       const eligible = hasPersistentLogin() && isStandalone() && isConnected();
-
       if (!eligible) {
         checkbox.checked = isRequested();
         renderState();
@@ -143,13 +159,20 @@
 
       if (checkbox.checked) {
         localStorage.setItem(WIDGET_PREF_KEY, 'true');
+        syncNativeWidget(true);
         if (typeof showToast === 'function') {
-          showToast('Widget access prepared', 'Your preference will stay enabled after Rainbow closes.');
+          showToast(
+            hasNativeBridge() ? 'Widget enabled' : 'Widget access prepared',
+            hasNativeBridge()
+              ? 'You can now add Rainbow from Android’s Home Screen widget picker.'
+              : 'Your preference will stay enabled after Rainbow closes.'
+          );
         }
       } else {
         localStorage.removeItem(WIDGET_PREF_KEY);
+        syncNativeWidget(false);
         if (typeof showToast === 'function') {
-          showToast('Widget access disabled', 'Current Front widget permission is turned off.');
+          showToast('Widget disabled', 'Current Front widget access is turned off.');
         }
       }
       renderState();
@@ -175,9 +198,9 @@
     const connected = isConnected();
     const eligible = persistent && installed && connected;
 
-    // If the remembered token is gone, widget permission must be revoked.
     if (!persistent && isRequested()) {
       localStorage.removeItem(WIDGET_PREF_KEY);
+      syncNativeWidget(false);
     }
 
     const requested = isRequested();
@@ -194,22 +217,21 @@
     checkbox.disabled = !eligible;
 
     if (eligible) {
+      if (requested) syncNativeWidget(true);
       status.textContent = requested
-        ? 'Prepared. This setting will stay enabled after the app closes.'
-        : 'All requirements are complete. You can prepare widget access.';
+        ? (hasNativeBridge()
+          ? 'Enabled. Add Rainbow from Android’s Home Screen widget picker.'
+          : 'Prepared. Use the native Android app to install the launcher widget.')
+        : 'All requirements are complete. You can enable widget access.';
       return;
     }
 
     if (requested) {
-      if (!installed) {
-        status.textContent = 'Prepared. Open Rainbow from the installed app to use this setting.';
-      } else if (!connected) {
-        status.textContent = navigator.onLine
-          ? 'Prepared. Waiting for Rainbow to finish reconnecting to PluralKit.'
-          : 'Prepared. Widget data will be unavailable until you are back online.';
-      } else {
-        status.textContent = 'Prepared. Waiting for the required app state.';
-      }
+      status.textContent = !connected
+        ? (navigator.onLine
+          ? 'Enabled. Waiting for Rainbow to finish reconnecting to PluralKit.'
+          : 'Enabled. Widget refresh requires an internet connection.')
+        : 'Enabled. Waiting for the required app state.';
       return;
     }
 
