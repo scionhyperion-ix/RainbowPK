@@ -1,5 +1,36 @@
 /* Group member picker scrolling and current-member strip. */
 
+/* This file loads after groups-route.css, so keep the compact avatar rules here
+   too. That makes the fix resilient even when an older group-route stylesheet
+   is still present in a browser cache. */
+.fallback-avatar {
+  display: grid !important;
+  place-items: center !important;
+  box-sizing: border-box;
+  padding: 0 !important;
+  text-align: center !important;
+  line-height: 1 !important;
+  overflow: hidden;
+}
+
+.group-member-mini {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  min-height: 34px !important;
+  padding: 0 !important;
+  object-fit: cover !important;
+  object-position: 50% 50% !important;
+  image-rendering: auto;
+  box-sizing: border-box;
+}
+
+.group-member-mini.fallback-avatar {
+  font-size: .58rem;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
 @media (min-width: 901px) {
   .groups-manager-layout {
     height: min(620px, calc(100dvh - 190px));
@@ -104,8 +135,6 @@
   outline: none;
 }
 
-/* Keep tiny profile art centered and let the browser use its normal smooth
-   interpolation rather than treating the image like pixel art. */
 .groups-current-member-avatar {
   display: block;
   width: 40px;
@@ -121,8 +150,6 @@
   image-rendering: auto;
 }
 
-/* makeAvatar() returns a div for members without an avatar. It needs its own
-   centering rules because object-fit only applies to actual images. */
 .groups-current-member-avatar.fallback-avatar {
   display: grid !important;
   place-items: center !important;
@@ -159,6 +186,17 @@
 }
 
 @media (max-width: 760px) {
+  .group-member-mini {
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    min-height: 30px !important;
+  }
+
+  .group-member-mini.fallback-avatar {
+    font-size: .54rem;
+  }
+
   .groups-current-members {
     gap: 7px;
     margin-bottom: 8px;
