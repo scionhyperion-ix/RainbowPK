@@ -33,7 +33,7 @@
   ensureStylesheet('assets/css/member-editor-v2.css?v=1');
   ensureStylesheet('assets/css/groups-route.css?v=2');
   ensureStylesheet('assets/css/groups-members-access.css?v=3');
-  ensureStylesheet('assets/css/avatar-rendering.css?v=1');
+  ensureStylesheet('assets/css/avatar-rendering.css?v=2');
   ensureStylesheet('assets/css/home-system-controls.css?v=2');
   ensureStylesheet('assets/css/multi-cofronter.css?v=1');
   ensureStylesheet('assets/css/guide-popovers.css?v=3');
