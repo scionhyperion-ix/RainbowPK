@@ -1,0 +1,222 @@
+/* Native Android app mode. These rules activate only inside the Rainbow APK. */
+@media (max-width: 760px) {
+  html.native-app,
+  body.native-app {
+    min-height: 100%;
+    overscroll-behavior: none;
+  }
+
+  body.native-app {
+    background: var(--bg) !important;
+  }
+
+  .native-app .app-shell {
+    min-height: 100dvh;
+  }
+
+  .native-app .main-column {
+    padding: 0 12px calc(70px + env(safe-area-inset-bottom)) !important;
+  }
+
+  /* Native app bar instead of a loose website heading. */
+  .native-app .topbar {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 40 !important;
+    min-height: 54px !important;
+    margin: 0 -12px 8px !important;
+    padding: 8px 14px !important;
+    border-bottom: 1px solid var(--line);
+    background: color-mix(in srgb, var(--bg) 94%, var(--theme-surface-1)) !important;
+  }
+
+  .native-app .topbar .eyebrow {
+    display: none !important;
+  }
+
+  .native-app .topbar h2 {
+    font-size: 1.12rem !important;
+    letter-spacing: -.02em;
+  }
+
+  .native-app .topbar-actions {
+    gap: 7px;
+  }
+
+  .native-app .topbar-actions .primary-button {
+    min-height: 34px;
+    padding: 7px 11px;
+    border-radius: 10px;
+  }
+
+  .native-app .native-refresh-button {
+    width: 34px !important;
+    min-width: 34px !important;
+    height: 34px !important;
+    min-height: 34px !important;
+    padding: 0 !important;
+    display: grid;
+    place-items: center;
+    border-radius: 10px !important;
+    font-size: 1rem !important;
+  }
+
+  .native-app .route-view {
+    padding-top: 2px;
+  }
+
+  .native-app .panel {
+    border-radius: 16px;
+  }
+
+  .native-app .section-panel {
+    padding: 14px;
+  }
+
+  /* Bottom navigation is attached to the app window instead of floating like a web card. */
+  .native-app .mobile-nav {
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    border-bottom: 0 !important;
+    border-radius: 18px 18px 0 0 !important;
+    padding: 6px 8px calc(6px + env(safe-area-inset-bottom)) !important;
+    background: color-mix(in srgb, var(--theme-surface-2) 96%, var(--bg)) !important;
+  }
+
+  .native-app .mobile-nav-item {
+    min-height: 48px;
+    border-radius: 12px !important;
+  }
+
+  /* Native login screen is a screen, not a website card floating on a page. */
+  .native-app .login-shell {
+    min-height: 100dvh;
+    padding: 0 !important;
+    display: block;
+  }
+
+  .native-app .login-card {
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 100dvh;
+    padding: 32px 22px calc(24px + env(safe-area-inset-bottom)) !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: var(--bg) !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .native-app .brand-lockup-login {
+    margin-bottom: 20px;
+  }
+
+  .native-app .brand-lockup-login h1 {
+    font-size: 2.15rem;
+  }
+
+  .native-app .login-intro {
+    margin-bottom: 20px;
+    font-size: .84rem;
+    line-height: 1.55;
+  }
+
+  .native-app .login-form {
+    gap: 11px;
+  }
+
+  .native-app .login-form .full-button {
+    min-height: 46px;
+    border-radius: 13px;
+  }
+
+  .native-app .security-note {
+    margin-top: 20px;
+    padding-top: 17px;
+  }
+
+  /* Settings are denser and use device/app terminology. */
+  .native-app #settingsRoute .settings-grid {
+    gap: 10px;
+  }
+
+  .native-app #settingsRoute .panel {
+    margin-top: 0;
+    padding: 14px;
+  }
+
+  .native-app #settingsRoute .detail-list > div {
+    padding-block: 9px;
+  }
+
+  .native-app #settingsRoute .prose-stack {
+    gap: 9px;
+  }
+
+  .native-app #settingsRoute .prose-stack p {
+    margin: 0;
+    font-size: .72rem;
+    line-height: 1.5;
+  }
+
+  .native-app [data-widget-requirement="installed"] {
+    display: none !important;
+  }
+
+  .native-app .widget-requirements {
+    gap: 7px;
+  }
+
+  /* Native dialogs behave like app bottom sheets. */
+  .native-app .modal-dialog[open] {
+    position: fixed !important;
+    inset: auto 0 0 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    max-height: 90dvh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 22px 22px 0 0 !important;
+  }
+
+  .native-app .modal-dialog::backdrop {
+    background: rgba(0, 0, 0, .66) !important;
+  }
+
+  .native-app .modal-card {
+    width: 100% !important;
+    max-height: 90dvh !important;
+    padding: 16px 16px calc(16px + env(safe-area-inset-bottom)) !important;
+    border-radius: 22px 22px 0 0 !important;
+  }
+
+  .native-app .member-editor-dialog[open] {
+    max-height: 94dvh !important;
+  }
+
+  .native-app .member-editor-card {
+    max-height: 94dvh !important;
+    border-radius: 22px 22px 0 0 !important;
+  }
+
+  .native-app .member-editor-heading {
+    padding: 13px 15px 11px !important;
+  }
+
+  .native-app .member-live-preview {
+    margin-inline: 12px;
+  }
+
+  /* Toasts clear the fixed app navigation. */
+  .native-app .toast-region {
+    bottom: calc(72px + env(safe-area-inset-bottom));
+  }
+}
