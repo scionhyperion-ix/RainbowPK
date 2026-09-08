@@ -32,6 +32,7 @@
   ensureStylesheet('assets/css/history-behavior.css?v=1');
   ensureStylesheet('assets/css/member-editor-v2.css?v=1');
   ensureStylesheet('assets/css/groups-route.css?v=1');
+  ensureStylesheet('assets/css/groups-members-access.css?v=1');
   ensureStylesheet('assets/css/guide-popovers.css?v=3');
   ensureStylesheet('assets/css/member-view-menu.css?v=1');
   ensureStylesheet('assets/css/modal-scroll-lock.css?v=1');
@@ -39,6 +40,7 @@
   loadScript('assets/js/member-editor-v2.js?v=1');
   loadScript('assets/js/groups-route.js?v=1');
   loadScript('assets/js/groups-route-runtime.js?v=1');
+  loadScript('assets/js/groups-members-access.js?v=1');
   loadScript('assets/js/guide-popovers.js?v=3');
   loadScript('assets/js/member-view-menu.js?v=1');
   loadScript('assets/js/modal-scroll-lock.js?v=1');
