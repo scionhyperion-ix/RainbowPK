@@ -128,8 +128,10 @@
     ensureStylesheet('assets/css/mobile-member-tabs-placement.css?v=1', '(max-width: 760px)');
     ensureStylesheet('assets/css/mobile-members.css?v=1', '(max-width: 760px)');
     ensureStylesheet('assets/css/pwa-widget.css?v=1', '(max-width: 760px)');
+    ensureStylesheet('assets/css/native-app.css?v=1', '(max-width: 760px)');
     ensureScript('assets/js/mobile-member-editor-tabs.js?v=1');
     ensureScript('assets/js/pwa-widget.js?v=1');
+    ensureScript('assets/js/native-app.js?v=1');
   }
 
   function installSiteChrome() {
