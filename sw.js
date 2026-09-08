@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'rainbow-shell-v4';
+const CACHE_NAME = 'rainbow-shell-v5';
 const APP_SHELL = [
   './',
   './index.html',
@@ -15,6 +15,7 @@ const APP_SHELL = [
   './assets/css/mobile-member-editor.css?v=3',
   './assets/css/mobile-member-tabs-placement.css?v=1',
   './assets/css/pwa-widget.css?v=1',
+  './assets/css/native-app.css?v=1',
   './assets/css/restore-loading.css',
   './assets/css/top-fronter.css',
   './assets/js/app.js',
@@ -24,6 +25,7 @@ const APP_SHELL = [
   './assets/js/themes.js',
   './assets/js/mobile-member-editor-tabs.js?v=1',
   './assets/js/pwa-widget.js?v=1',
+  './assets/js/native-app.js?v=1',
   './assets/images/rainbowpk.png',
   './assets/images/site-icon.png',
   './manifest.webmanifest'
