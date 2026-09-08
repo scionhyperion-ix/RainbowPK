@@ -30,10 +30,7 @@
     const nextTheme = validThemes.has(themeId) ? themeId : 'twilight';
     document.documentElement.dataset.theme = nextTheme;
 
-    if (save) {
-      localStorage.setItem(THEME_KEY, nextTheme);
-    }
-
+    if (save) localStorage.setItem(THEME_KEY, nextTheme);
     syncThemeButtons(nextTheme);
 
     if (notify && typeof showToast === 'function') {
@@ -103,7 +100,6 @@
     themeButtons.forEach(button => group.append(button));
 
     panel.append(eyebrow, title, intro, group);
-
     settingsGrid.append(panel);
     syncThemeButtons(document.documentElement.dataset.theme || 'twilight');
   }
@@ -131,7 +127,9 @@
     ensureStylesheet('mobile-member-editor.css?v=3', '(max-width: 760px)');
     ensureStylesheet('mobile-member-tabs-placement.css?v=1', '(max-width: 760px)');
     ensureStylesheet('mobile-members.css?v=1', '(max-width: 760px)');
+    ensureStylesheet('pwa-widget.css?v=1', '(max-width: 760px)');
     ensureScript('mobile-member-editor-tabs.js?v=1');
+    ensureScript('pwa-widget.js?v=1');
   }
 
   function installSiteChrome() {
