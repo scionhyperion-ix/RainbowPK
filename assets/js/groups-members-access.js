@@ -1,53 +1,36 @@
 'use strict';
 
-(function installGroupsMemberQuickAccess() {
+(function installGroupsCurrentMembers() {
   const collator = new Intl.Collator(undefined, { sensitivity: 'base', numeric: true });
+  let selectedRefs = new Set();
+  let enhancedDialog = null;
 
   function memberName(member) {
     return member?.name || member?.display_name || member?.id || 'Unknown member';
   }
 
-  function memberMatches(member, query) {
-    if (!query) return true;
-    return [member?.name, member?.display_name, member?.pronouns, member?.id]
-      .filter(Boolean)
-      .some(value => String(value).toLowerCase().includes(query));
+  function memberByRef(ref) {
+    return (Array.isArray(state.members) ? state.members : []).find(member =>
+      member?.uuid === ref || member?.id === ref
+    ) || null;
   }
 
-  function ensurePanel() {
-    const route = document.getElementById('groupsRoute');
-    const toolbar = route?.querySelector('.groups-toolbar');
-    if (!route || !toolbar) return null;
-
-    let panel = document.getElementById('groupsMemberQuickAccess');
-    if (panel) return panel;
-
-    panel = document.createElement('section');
-    panel.id = 'groupsMemberQuickAccess';
-    panel.className = 'groups-member-access';
-    panel.innerHTML = `
-      <div class="groups-member-access-heading">
-        <div>
-          <strong>Members quick access</strong>
-          <small>Open a member profile directly from Groups.</small>
-        </div>
-        <span id="groupsMemberAccessCount" class="groups-member-access-count"></span>
-      </div>
-      <label class="groups-member-access-search" for="groupsMemberAccessSearch">
-        <span>⌕</span>
-        <input id="groupsMemberAccessSearch" type="search" placeholder="Find a member" autocomplete="off">
-      </label>
-      <div id="groupsMemberAccessGrid" class="groups-member-access-grid" role="list"></div>
-      <p id="groupsMemberAccessEmpty" class="muted groups-member-access-empty" hidden>No members found.</p>`;
-
-    toolbar.insertAdjacentElement('afterend', panel);
-    document.getElementById('groupsMemberAccessSearch')?.addEventListener('input', renderMemberAccess);
-    return panel;
+  function canonicalRef(ref) {
+    const member = memberByRef(ref);
+    return member?.uuid || member?.id || String(ref || '');
   }
 
-  function makeQuickAvatar(member) {
+  function currentGroup() {
+    const ref = document.getElementById('groupsManagerRef')?.value || '';
+    if (!ref) return null;
+    return (Array.isArray(state.groups) ? state.groups : []).find(group =>
+      group?.id === ref || group?.uuid === ref
+    ) || null;
+  }
+
+  function makeCurrentMemberAvatar(member) {
     const avatar = typeof makeAvatar === 'function'
-      ? makeAvatar(member, 'groups-member-access-avatar')
+      ? makeAvatar(member, 'groups-current-member-avatar')
       : document.createElement('span');
 
     if (avatar instanceof HTMLImageElement) {
@@ -58,67 +41,128 @@
     return avatar;
   }
 
-  function renderMemberAccess() {
-    if (!ensurePanel()) return;
+  function ensureStrip() {
+    document.getElementById('groupsMemberQuickAccess')?.remove();
 
-    const grid = document.getElementById('groupsMemberAccessGrid');
-    const empty = document.getElementById('groupsMemberAccessEmpty');
-    const count = document.getElementById('groupsMemberAccessCount');
-    const query = document.getElementById('groupsMemberAccessSearch')?.value.trim().toLowerCase() || '';
-    if (!grid || !empty || !count) return;
+    const editor = document.querySelector('#groupsManagerDialog .groups-members-editor');
+    const search = editor?.querySelector('.groups-member-search');
+    if (!editor || !search) return null;
 
-    const members = [...(Array.isArray(state.members) ? state.members : [])]
-      .filter(member => memberMatches(member, query))
-      .sort((a, b) => collator.compare(memberName(a), memberName(b)));
+    let strip = document.getElementById('groupsCurrentMembers');
+    if (!strip) {
+      strip = document.createElement('section');
+      strip.id = 'groupsCurrentMembers';
+      strip.className = 'groups-current-members';
+      strip.innerHTML = `
+        <div class="groups-current-members-heading">
+          <div>
+            <strong>Current members</strong>
+            <small>Click a member to edit their profile.</small>
+          </div>
+          <span id="groupsCurrentMembersCount">0</span>
+        </div>
+        <div id="groupsCurrentMemberIcons" class="groups-current-member-icons"></div>
+        <p id="groupsCurrentMembersEmpty" class="muted groups-current-members-empty">No members selected.</p>`;
+      editor.insertBefore(strip, search);
+    }
 
-    count.textContent = query
-      ? `${members.length} match${members.length === 1 ? '' : 'es'}`
-      : `${members.length} member${members.length === 1 ? '' : 's'}`;
+    return strip;
+  }
 
-    grid.replaceChildren();
+  function selectedMembers() {
+    const unique = new Map();
+    selectedRefs.forEach(ref => {
+      const member = memberByRef(ref);
+      if (!member) return;
+      unique.set(member.uuid || member.id, member);
+    });
+    return [...unique.values()].sort((a, b) => collator.compare(memberName(a), memberName(b)));
+  }
+
+  function renderCurrentMembers() {
+    if (!ensureStrip()) return;
+
+    const icons = document.getElementById('groupsCurrentMemberIcons');
+    const count = document.getElementById('groupsCurrentMembersCount');
+    const empty = document.getElementById('groupsCurrentMembersEmpty');
+    if (!icons || !count || !empty) return;
+
+    const members = selectedMembers();
+    count.textContent = `${members.length} selected`;
+    icons.replaceChildren();
     empty.hidden = members.length > 0;
 
     members.forEach(member => {
       const button = document.createElement('button');
       button.type = 'button';
-      button.className = 'groups-member-access-item';
-      button.setAttribute('role', 'listitem');
+      button.className = 'groups-current-member-button';
       button.title = `Edit ${memberName(member)}`;
-      button.append(makeQuickAvatar(member));
-
-      const copy = document.createElement('span');
-      copy.className = 'groups-member-access-copy';
-
-      const strong = document.createElement('strong');
-      strong.textContent = memberName(member);
-      copy.append(strong);
-
-      const small = document.createElement('small');
-      small.textContent = member.pronouns || member.display_name || member.id || 'Member';
-      copy.append(small);
-
-      button.append(copy);
+      button.setAttribute('aria-label', `Edit ${memberName(member)}`);
+      button.append(makeCurrentMemberAvatar(member));
       button.addEventListener('click', () => {
         if (typeof openMemberDialog === 'function') openMemberDialog(member);
       });
-      grid.append(button);
+      icons.append(button);
     });
   }
 
-  ensurePanel();
-  renderMemberAccess();
+  function syncFromDialog() {
+    const dialog = document.getElementById('groupsManagerDialog');
+    if (!dialog?.open) return;
+
+    selectedRefs = new Set();
+    const group = currentGroup();
+    (Array.isArray(group?.members) ? group.members : []).forEach(ref => {
+      const normalized = canonicalRef(ref);
+      if (normalized) selectedRefs.add(normalized);
+    });
+
+    document.querySelectorAll('#groupsMemberPicker input:checked').forEach(input => {
+      const normalized = canonicalRef(input.value);
+      if (normalized) selectedRefs.add(normalized);
+    });
+
+    renderCurrentMembers();
+  }
+
+  function enhanceDialog() {
+    const dialog = document.getElementById('groupsManagerDialog');
+    if (!dialog || dialog === enhancedDialog) return;
+    enhancedDialog = dialog;
+
+    ensureStrip();
+
+    dialog.addEventListener('change', event => {
+      const input = event.target.closest?.('#groupsMemberPicker input[type="checkbox"]');
+      if (!input) return;
+
+      const ref = canonicalRef(input.value);
+      if (!ref) return;
+      if (input.checked) selectedRefs.add(ref);
+      else selectedRefs.delete(ref);
+      renderCurrentMembers();
+    });
+
+    const openObserver = new MutationObserver(() => {
+      if (dialog.open) syncFromDialog();
+    });
+    openObserver.observe(dialog, { attributes: true, attributeFilter: ['open'] });
+
+    if (dialog.open) syncFromDialog();
+  }
+
+  document.getElementById('groupsMemberQuickAccess')?.remove();
+  enhanceDialog();
+
+  const bodyObserver = new MutationObserver(() => {
+    document.getElementById('groupsMemberQuickAccess')?.remove();
+    enhanceDialog();
+  });
+  bodyObserver.observe(document.body, { childList: true, subtree: true });
 
   const originalRenderAll = renderAll;
-  renderAll = function renderAllWithGroupMemberAccess() {
+  renderAll = function renderAllWithCurrentGroupMembers() {
     originalRenderAll();
-    renderMemberAccess();
+    if (document.getElementById('groupsManagerDialog')?.open) renderCurrentMembers();
   };
-
-  const routeObserver = new MutationObserver(() => {
-    if (!document.getElementById('groupsMemberQuickAccess')) {
-      ensurePanel();
-      renderMemberAccess();
-    }
-  });
-  routeObserver.observe(document.body, { childList: true, subtree: true });
 })();
