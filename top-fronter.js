@@ -1,10 +1,10 @@
 'use strict';
 
 (function installTopFronter() {
-  if (!document.querySelector('link[href="top-fronter.css"]')) {
+  if (!document.querySelector('link[href="assets/css/top-fronter.css"]')) {
     const styleLink = document.createElement('link');
     styleLink.rel = 'stylesheet';
-    styleLink.href = 'top-fronter.css';
+    styleLink.href = 'assets/css/top-fronter.css';
     document.head.append(styleLink);
   }
 

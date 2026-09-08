@@ -4,10 +4,10 @@
   const persistentKey = 'rainbow_pk_token';
   if (!localStorage.getItem(persistentKey)) return;
 
-  if (!document.querySelector('link[href="restore-loading.css"]')) {
+  if (!document.querySelector('link[href="assets/css/restore-loading.css"]')) {
     const styleLink = document.createElement('link');
     styleLink.rel = 'stylesheet';
-    styleLink.href = 'restore-loading.css';
+    styleLink.href = 'assets/css/restore-loading.css';
     document.head.append(styleLink);
   }
 
@@ -102,10 +102,10 @@
     return member?.name || member?.display_name || 'Unknown member';
   };
 
-  if (!document.querySelector('link[href="member-sort.css"]')) {
+  if (!document.querySelector('link[href="assets/css/member-sort.css"]')) {
     const styleLink = document.createElement('link');
     styleLink.rel = 'stylesheet';
-    styleLink.href = 'member-sort.css';
+    styleLink.href = 'assets/css/member-sort.css';
     document.head.append(styleLink);
   }
 

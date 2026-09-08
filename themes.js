@@ -124,12 +124,12 @@
   function installMobileStyles() {
     ensureStylesheet('mobile.css', '(max-width: 760px)');
     ensureStylesheet('mobile-front-timers.css', '(max-width: 760px)');
-    ensureStylesheet('mobile-member-editor.css?v=3', '(max-width: 760px)');
-    ensureStylesheet('mobile-member-tabs-placement.css?v=1', '(max-width: 760px)');
-    ensureStylesheet('mobile-members.css?v=1', '(max-width: 760px)');
-    ensureStylesheet('pwa-widget.css?v=1', '(max-width: 760px)');
-    ensureScript('mobile-member-editor-tabs.js?v=1');
-    ensureScript('pwa-widget.js?v=1');
+    ensureStylesheet('assets/css/mobile-member-editor.css?v=3', '(max-width: 760px)');
+    ensureStylesheet('assets/css/mobile-member-tabs-placement.css?v=1', '(max-width: 760px)');
+    ensureStylesheet('assets/css/mobile-members.css?v=1', '(max-width: 760px)');
+    ensureStylesheet('assets/css/pwa-widget.css?v=1', '(max-width: 760px)');
+    ensureScript('assets/js/mobile-member-editor-tabs.js?v=1');
+    ensureScript('assets/js/pwa-widget.js?v=1');
   }
 
   function installSiteChrome() {
