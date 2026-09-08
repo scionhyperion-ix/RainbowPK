@@ -1,5 +1,30 @@
 /* Member view dropdown and profile-heavy Card tiles layout. */
 
+/* Members is the only core route without its own panel wrapper in the HTML.
+   Give it the same themed surface language so colorful themes do not make this
+   page look like it belongs to a different palette. */
+#membersRoute {
+  position: relative;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--theme-surface-1) 62%, transparent),
+    color-mix(in srgb, var(--theme-surface-2) 62%, transparent)
+  );
+}
+
+/* Keep member cards on the same panel gradient used throughout Rainbow.
+   This also overrides the older flatter mobile-only fill. */
+#membersRoute .member-card {
+  background: linear-gradient(180deg, var(--theme-surface-1), var(--theme-surface-2)) !important;
+}
+
+#membersRoute .member-card:hover {
+  background: linear-gradient(180deg, var(--theme-surface-hover), var(--theme-surface-2)) !important;
+}
+
 #membersRoute .member-view-control {
   min-width: 126px;
 }
@@ -141,6 +166,16 @@
 }
 
 @media (max-width: 760px) {
+  #membersRoute {
+    padding: 12px;
+    border-radius: 17px;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--theme-surface-1) 68%, transparent),
+      color-mix(in srgb, var(--theme-surface-2) 68%, transparent)
+    );
+  }
+
   #membersRoute .member-view-control {
     grid-column: 2;
     min-width: 118px;
