@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'rainbow-shell-v18';
+const CACHE_NAME = 'rainbow-shell-v19';
 const APP_SHELL = [
   './',
   './index.html',
@@ -10,8 +10,9 @@ const APP_SHELL = [
   './assets/css/site-features.css?v=1',
   './assets/css/history-behavior.css?v=1',
   './assets/css/member-editor-v2.css?v=1',
-  './assets/css/groups-route.css?v=1',
+  './assets/css/groups-route.css?v=2',
   './assets/css/groups-members-access.css?v=3',
+  './assets/css/avatar-rendering.css?v=1',
   './assets/css/guide-popovers.css?v=3',
   './assets/css/member-view-menu.css?v=1',
   './assets/css/modal-scroll-lock.css?v=1',
@@ -52,7 +53,13 @@ const APP_SHELL = [
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(APP_SHELL))
+      .then(async cache => {
+        await Promise.all(APP_SHELL.map(async url => {
+          const response = await fetch(new Request(url, { cache: 'reload' }));
+          if (!response.ok) throw new Error(`Could not cache ${url}`);
+          await cache.put(url, response);
+        }));
+      })
       .then(() => self.skipWaiting())
   );
 });
@@ -73,7 +80,7 @@ self.addEventListener('fetch', event => {
   if (url.origin !== self.location.origin) return;
 
   event.respondWith(
-    fetch(request)
+    fetch(request, { cache: 'no-store' })
       .then(response => {
         if (response.ok) {
           const copy = response.clone();
