@@ -3,6 +3,15 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
+val generatedLauncherResDir = layout.buildDirectory.dir("generated/rainbow-launcher/res")
+val generatedLauncherDrawableDir = layout.buildDirectory.dir("generated/rainbow-launcher/res/drawable")
+
+val generateRainbowLauncherIcon by tasks.registering(Copy::class) {
+    from(rootProject.file("../assets/images/rainbowpk.png"))
+    into(generatedLauncherDrawableDir)
+    rename { "rainbow_icon.png" }
+}
+
 android {
     namespace = "io.github.scionhyperion.rainbow"
     compileSdk = 35
@@ -11,9 +20,11 @@ android {
         applicationId = "io.github.scionhyperion.rainbow"
         minSdk = 26
         targetSdk = 35
-        versionCode = 2
-        versionName = "0.2.0"
+        versionCode = 3
+        versionName = "0.2.1"
     }
+
+    sourceSets["main"].res.srcDir(generatedLauncherResDir)
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -27,6 +38,10 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+}
+
+tasks.named("preBuild").configure {
+    dependsOn(generateRainbowLauncherIcon)
 }
 
 dependencies {
