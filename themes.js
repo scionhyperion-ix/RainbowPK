@@ -120,6 +120,7 @@
   function installMobileStyles() {
     ensureStylesheet('mobile.css', '(max-width: 760px)');
     ensureStylesheet('mobile-front-timers.css', '(max-width: 760px)');
+    ensureStylesheet('mobile-member-editor.css?v=1', '(max-width: 760px)');
   }
 
   function installSiteChrome() {
