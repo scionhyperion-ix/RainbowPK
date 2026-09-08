@@ -4,6 +4,13 @@
   const SORT_KEY = 'rainbow_member_sort';
   const validSorts = new Set(['az', 'za', 'newest', 'oldest']);
 
+  if (!document.querySelector('link[href="member-sort.css"]')) {
+    const styleLink = document.createElement('link');
+    styleLink.rel = 'stylesheet';
+    styleLink.href = 'member-sort.css';
+    document.head.append(styleLink);
+  }
+
   function getSavedSort() {
     const saved = localStorage.getItem(SORT_KEY);
     return validSorts.has(saved) ? saved : 'az';
