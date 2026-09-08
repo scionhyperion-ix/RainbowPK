@@ -69,7 +69,18 @@
   height: 54px;
   border-radius: 16px;
   object-fit: cover;
+  object-position: 50% 50%;
+  image-rendering: auto;
   border: 1px solid var(--line-strong);
+}
+
+.group-card-icon.fallback-avatar {
+  display: grid !important;
+  place-items: center !important;
+  padding: 0 !important;
+  text-align: center !important;
+  line-height: 1 !important;
+  font-weight: 800;
 }
 
 .group-card-copy {
@@ -107,15 +118,36 @@
 
 .group-member-mini,
 .group-member-more {
-  width: 30px;
-  height: 30px;
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  min-height: 34px;
   margin-left: -7px;
   border: 2px solid var(--theme-surface-2, #171928);
-  border-radius: 9px;
+  border-radius: 10px;
+  box-sizing: border-box;
 }
 
 .group-member-mini {
+  display: block;
+  padding: 0;
   object-fit: cover;
+  object-position: 50% 50%;
+  image-rendering: auto;
+}
+
+.group-member-mini.fallback-avatar {
+  display: grid !important;
+  place-items: center !important;
+  padding: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  text-align: center !important;
+  line-height: 1 !important;
+  font-size: .58rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  overflow: hidden;
 }
 
 .group-member-preview > :first-child {
@@ -341,9 +373,15 @@
 
   .group-member-mini,
   .group-member-more {
-    width: 26px;
-    height: 26px;
-    border-radius: 8px;
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    min-height: 30px;
+    border-radius: 9px;
+  }
+
+  .group-member-mini.fallback-avatar {
+    font-size: .54rem;
   }
 
   .groups-manager-dialog {
