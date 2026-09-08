@@ -115,6 +115,7 @@ body {
     radial-gradient(circle at 12% 8%, var(--theme-glow-1), transparent 28rem),
     radial-gradient(circle at 88% 12%, var(--theme-glow-2), transparent 30rem),
     var(--bg);
+  background-attachment: fixed;
   transition: background-color .22s ease, color .22s ease;
 }
 
@@ -129,16 +130,19 @@ body {
   background: linear-gradient(180deg, var(--theme-surface-hover), var(--theme-surface-2));
 }
 
+/* Keep the application shell on one continuous page background. */
+.sidebar,
+.main-column,
+.topbar {
+  background: transparent;
+}
+
 .sidebar {
-  background: color-mix(in srgb, var(--theme-surface-2) 82%, transparent);
+  backdrop-filter: none;
 }
 
 .topbar {
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--bg) 96%, transparent) 60%,
-    transparent
-  );
+  backdrop-filter: none;
 }
 
 input,
