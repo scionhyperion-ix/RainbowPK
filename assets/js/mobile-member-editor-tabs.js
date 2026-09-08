@@ -12,6 +12,7 @@
   const mediaHeading = stage.querySelector('.media-heading');
   const imageFields = stage.querySelector('.image-link-fields');
   const description = stage.querySelector('.description-field');
+  const proxySection = stage.querySelector('#memberProxySection');
 
   if (!profileHeading || !profileGrid || !mediaHeading || !imageFields || !description) return;
 
@@ -41,7 +42,7 @@
     panel.dataset.memberPanel = id;
     panel.setAttribute('role', 'tabpanel');
     panel.setAttribute('aria-label', label);
-    nodes.forEach(node => panel.append(node));
+    nodes.filter(Boolean).forEach(node => panel.append(node));
 
     buttonMap.set(id, button);
     panelMap.set(id, panel);
@@ -50,7 +51,7 @@
 
   const profilePanel = makePanel('profile', 'Profile', [profileHeading, profileGrid]);
   const imagesPanel = makePanel('images', 'Images', [mediaHeading, imageFields]);
-  const notesPanel = makePanel('notes', 'Notes', [description]);
+  const notesPanel = makePanel('notes', 'Notes', [description, proxySection]);
 
   stage.replaceChildren(tabs, profilePanel, imagesPanel, notesPanel);
 
@@ -87,7 +88,7 @@
       const message = error.textContent.toLowerCase();
       if (message.includes('profile picture') || message.includes('banner')) {
         setTab('images');
-      } else if (message.includes('description')) {
+      } else if (message.includes('description') || message.includes('proxy')) {
         setTab('notes');
       } else {
         setTab('profile');
