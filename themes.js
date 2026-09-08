@@ -122,11 +122,6 @@
       link.href = iconHref;
       if (rel !== 'apple-touch-icon') link.type = 'image/png';
     });
-
-    document.querySelectorAll('[data-route="members"] > span').forEach(icon => {
-      icon.textContent = '👥';
-      icon.setAttribute('aria-hidden', 'true');
-    });
   }
 
   applyTheme(savedTheme(), { save: false });
