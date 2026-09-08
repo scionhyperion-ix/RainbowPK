@@ -21,24 +21,26 @@
 
 .system-summary-panel {
   position: relative;
+  padding-bottom: 62px;
 }
 
 .system-edit-button {
   position: absolute;
   z-index: 5;
-  top: 16px;
-  right: 16px;
+  right: 20px;
+  bottom: 18px;
+  top: auto;
   min-height: 34px;
   padding: 7px 11px;
-  border-color: rgba(255, 255, 255, .22);
-  background: rgba(11, 12, 22, .72);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, .18);
+  border-color: var(--line-strong);
+  background: color-mix(in srgb, var(--theme-surface-1) 84%, transparent);
+  box-shadow: none;
   backdrop-filter: blur(12px);
   font-size: .72rem;
 }
 
 .system-edit-button:hover {
-  background: rgba(20, 22, 38, .9);
+  background: var(--theme-surface-hover);
 }
 
 .system-editor-dialog {
@@ -185,11 +187,16 @@
     padding-right: 5px;
   }
 
+  #homeRoute .system-summary-panel {
+    padding-bottom: 54px !important;
+  }
+
   .system-edit-button {
-    top: 8px;
-    right: 10px;
+    right: 12px;
+    bottom: 12px;
+    top: auto;
     min-height: 30px;
-    padding: 5px 8px;
+    padding: 5px 9px;
     border-radius: 9px;
     font-size: .62rem;
   }
