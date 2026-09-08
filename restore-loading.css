@@ -1,0 +1,89 @@
+/* Persistent login restore screen */
+.restore-loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 20% 12%, var(--theme-glow-1, rgba(128, 91, 216, .20)), transparent 30rem),
+    radial-gradient(circle at 82% 18%, var(--theme-glow-2, rgba(174, 145, 255, .11)), transparent 32rem),
+    var(--bg, #0b0c16);
+  opacity: 1;
+  transition: opacity .2s ease;
+}
+
+.restore-loading-screen.is-leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.restore-loading-card {
+  width: min(360px, 100%);
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  text-align: center;
+}
+
+.restore-loading-logo {
+  width: 58px;
+  height: 58px;
+  border-radius: 17px;
+  object-fit: cover;
+  box-shadow: 0 12px 34px rgba(0, 0, 0, .28);
+}
+
+.restore-loading-copy {
+  display: grid;
+  gap: 5px;
+}
+
+.restore-loading-copy strong {
+  font-size: 1.12rem;
+  letter-spacing: -.02em;
+}
+
+.restore-loading-copy span {
+  color: var(--muted, #aaa8bd);
+  font-size: .84rem;
+}
+
+.restore-loading-track {
+  position: relative;
+  width: min(270px, 78vw);
+  height: 4px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-surface-1, #1c1e33) 84%, transparent);
+  border: 1px solid var(--line, rgba(255, 255, 255, .09));
+}
+
+.restore-loading-track span {
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: 0;
+  width: 42%;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--accent-2, #c0b5ff),
+    var(--accent, #9b8cff),
+    transparent
+  );
+  animation: rainbow-restore-loading 1.05s ease-in-out infinite;
+}
+
+@keyframes rainbow-restore-loading {
+  from { transform: translateX(-120%); }
+  to { transform: translateX(340%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .restore-loading-track span {
+    animation-duration: 2.2s;
+  }
+}
