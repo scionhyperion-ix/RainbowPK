@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'rainbow-shell-v1';
+const CACHE_NAME = 'rainbow-shell-v2';
 const APP_SHELL = [
   './',
   './index.html',
@@ -14,6 +14,7 @@ const APP_SHELL = [
   './mobile-members.css',
   './mobile-member-editor.css',
   './mobile-member-tabs-placement.css',
+  './pwa-widget.css',
   './top-fronter.css',
   './app.js',
   './enhancements.js',
@@ -21,6 +22,7 @@ const APP_SHELL = [
   './top-fronter.js',
   './themes.js',
   './mobile-member-editor-tabs.js',
+  './pwa-widget.js',
   './rainbowpk.png',
   './manifest.webmanifest'
 ];
@@ -48,29 +50,18 @@ self.addEventListener('fetch', event => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
-  if (request.mode === 'navigate') {
-    event.respondWith(
-      fetch(request)
-        .then(response => {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put('./index.html', copy));
-          return response;
-        })
-        .catch(() => caches.match('./index.html'))
-    );
-    return;
-  }
-
   event.respondWith(
-    caches.match(request).then(cached => {
-      if (cached) return cached;
-      return fetch(request).then(response => {
+    fetch(request)
+      .then(response => {
         if (response.ok) {
           const copy = response.clone();
           caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
         }
         return response;
-      });
-    })
+      })
+      .catch(() => {
+        if (request.mode === 'navigate') return caches.match('./index.html');
+        return caches.match(request);
+      })
   );
 });
