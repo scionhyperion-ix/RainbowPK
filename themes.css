@@ -245,6 +245,23 @@ textarea:focus {
   text-align: right;
 }
 
+/* Keep every sidebar navigation row the same height, even for tall fallback glyphs. */
+.nav-item {
+  min-height: 48px;
+}
+
+.nav-item > span {
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 22px;
+  text-align: center;
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
 .appearance-panel {
   grid-column: 1 / -1;
 }
