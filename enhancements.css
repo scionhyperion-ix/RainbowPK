@@ -164,7 +164,12 @@
   width: 42px;
   height: 4px;
   border-radius: 999px;
-  margin: 16px auto 12px;
+
+  margin-top: 16px;
+  margin-right: 0;
+  margin-bottom: 12px;
+  margin-left: calc((92px - 42px) / 2);
+
   background: var(--accent);
 }
 
