@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f1020">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src https://api.pluralkit.me; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <title>Rainbow for PluralKit</title>
+  <meta name="description" content="A private-by-default PluralKit web client for fronting and member management.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="toastRegion" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+
+  <main id="loginView" class="login-shell">
+    <section class="login-card" aria-labelledby="loginTitle">
+      <div class="brand-lockup brand-lockup-login">
+        <div class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+        <div><p class="eyebrow">PluralKit client</p><h1 id="loginTitle">Rainbow</h1></div>
+      </div>
+      <p class="login-intro">Connect with your own PluralKit token. The public site contains no system token and no shared account data.</p>
+
+      <form id="loginForm" class="login-form">
+        <label for="tokenInput">PluralKit system token</label>
+        <div class="password-field">
+          <input id="tokenInput" name="token" type="password" autocomplete="off" spellcheck="false" required placeholder="Paste the token from pk;token">
+          <button id="toggleToken" class="icon-button" type="button" aria-label="Show token">Show</button>
+        </div>
+        <label class="check-row">
+          <input id="rememberToken" type="checkbox">
+          <span><strong>Keep me signed in on this browser</strong><small>Stores the token in this browser until you sign out. Leave this off on shared devices.</small></span>
+        </label>
+        <button id="loginButton" class="primary-button full-button" type="submit">Connect to PluralKit</button>
+        <p id="loginError" class="form-error" role="alert" hidden></p>
+      </form>
+
+      <div class="security-note"><strong>Where is my token?</strong><p>Run <code>pk;token</code> with the PluralKit Discord bot. Your token is sent only to PluralKit's API when this client makes authenticated requests.</p></div>
+    </section>
+  </main>
+
+  <div id="appView" class="app-shell" hidden>
+    <aside class="sidebar">
+      <div class="brand-lockup sidebar-brand">
+        <div class="brand-mark compact" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+        <div><strong>Rainbow</strong><small>for PluralKit</small></div>
+      </div>
+      <nav class="nav-list" aria-label="Primary navigation">
+        <button class="nav-item active" data-route="home" type="button"><span>⌂</span>Home</button>
+        <button class="nav-item" data-route="members" type="button"><span>◌</span>Members</button>
+        <button class="nav-item" data-route="history" type="button"><span>↻</span>Front history</button>
+        <button class="nav-item" data-route="settings" type="button"><span>⚙</span>Settings</button>
+      </nav>
+      <div class="sidebar-account">
+        <div id="sidebarAvatar" class="system-avatar fallback-avatar">R</div>
+        <div class="sidebar-account-copy"><strong id="sidebarSystemName">System</strong><small id="sidebarSystemId">...</small></div>
+      </div>
+    </aside>
+
+    <div class="main-column">
+      <header class="topbar">
+        <div><p id="pageEyebrow" class="eyebrow">Overview</p><h2 id="pageTitle">Home</h2></div>
+        <div class="topbar-actions">
+          <button id="refreshButton" class="secondary-button" type="button">Refresh</button>
+          <button id="openFrontManager" class="primary-button" type="button">Manage front</button>
+        </div>
+      </header>
+      <div id="loadingBar" class="loading-bar" hidden><span></span></div>
+
+      <section id="homeRoute" class="route-view">
+        <div class="hero-grid">
+          <article class="panel current-front-panel">
+            <div class="panel-heading"><div><p class="eyebrow">Current front</p><h3 id="currentFrontHeading">Loading...</h3></div><span id="frontDuration" class="soft-pill">--</span></div>
+            <div id="currentFrontMembers" class="current-front-members"></div>
+            <div class="panel-actions"><button id="addCoFronterButton" class="secondary-button" type="button">Add co-fronter</button><button id="switchOutButton" class="text-button danger-text" type="button">Switch out</button></div>
+          </article>
+
+          <article class="panel system-summary-panel">
+            <div id="systemBanner" class="system-banner"></div>
+            <div class="system-summary-content"><div id="systemAvatar" class="system-avatar large fallback-avatar">R</div><div><p class="eyebrow">Connected system</p><h3 id="systemName">System</h3><p id="systemPronouns" class="muted"></p></div></div>
+            <div class="stats-row"><div><strong id="memberCount">0</strong><span>Members</span></div><div><strong id="switchCount">0</strong><span>Recent switches</span></div><div><strong id="systemShortId">...</strong><span>System ID</span></div></div>
+          </article>
+        </div>
+
+        <article class="panel section-panel">
+          <div class="panel-heading split-heading"><div><p class="eyebrow">Quick front</p><h3>Frequent members</h3></div><button id="chooseAnyMemberButton" class="text-button" type="button">Choose member</button></div>
+          <p class="muted section-copy">Selecting a member starts a new PluralKit switch with that member as the current front.</p>
+          <div id="frequentMembers" class="member-chip-grid"></div>
+        </article>
+
+        <article class="panel section-panel">
+          <div class="panel-heading split-heading"><div><p class="eyebrow">Recent activity</p><h3>Latest switches</h3></div><button class="text-button" data-route-link="history" type="button">View history</button></div>
+          <div id="recentSwitches" class="timeline"></div>
+        </article>
+      </section>
+
+      <section id="membersRoute" class="route-view" hidden>
+        <div class="toolbar-row"><label class="search-field" for="memberSearch"><span>⌕</span><input id="memberSearch" type="search" placeholder="Search members" autocomplete="off"></label><button id="createMemberButton" class="primary-button" type="button">New member</button></div>
+        <div id="memberGrid" class="member-card-grid"></div>
+        <div id="membersEmpty" class="empty-state" hidden><h3>No members found</h3><p>Try another search, or create a new member.</p></div>
+      </section>
+
+      <section id="historyRoute" class="route-view" hidden>
+        <article class="panel section-panel">
+          <div class="panel-heading split-heading"><div><p class="eyebrow">PluralKit switch log</p><h3>Front history</h3></div><button id="newSwitchButton" class="primary-button" type="button">Log switch</button></div>
+          <div id="historyList" class="history-list"></div>
+        </article>
+      </section>
+
+      <section id="settingsRoute" class="route-view" hidden>
+        <div class="settings-grid">
+          <article class="panel section-panel">
+            <p class="eyebrow">Connection</p><h3>PluralKit account</h3>
+            <dl class="detail-list"><div><dt>System</dt><dd id="settingsSystemName">...</dd></div><div><dt>Short ID</dt><dd id="settingsSystemId">...</dd></div><div><dt>Token storage</dt><dd id="settingsTokenStorage">Session only</dd></div><div><dt>API</dt><dd>api.pluralkit.me/v2</dd></div></dl>
+            <button id="signOutButton" class="secondary-button danger-button" type="button">Sign out and forget token</button>
+          </article>
+          <article class="panel section-panel">
+            <p class="eyebrow">Security</p><h3>How this login works</h3>
+            <div class="prose-stack"><p>The token is never included in this website's source code.</p><p>API requests are sent from your browser directly to PluralKit. Rainbow does not run its own user database.</p><p>If you use a public or shared computer, sign out when you are finished and leave persistent login disabled.</p></div>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <button class="mobile-nav-item active" data-route="home" type="button"><span>⌂</span>Home</button>
+      <button class="mobile-nav-item" data-route="members" type="button"><span>◌</span>Members</button>
+      <button class="mobile-nav-item" data-route="history" type="button"><span>↻</span>History</button>
+      <button class="mobile-nav-item" data-route="settings" type="button"><span>⚙</span>Settings</button>
+    </nav>
+  </div>
+
+  <dialog id="memberDialog" class="modal-dialog">
+    <form id="memberForm" class="modal-card" method="dialog">
+      <div class="modal-heading"><div><p class="eyebrow" id="memberDialogEyebrow">Member</p><h3 id="memberDialogTitle">Edit member</h3></div><button class="icon-button close-dialog" type="button" aria-label="Close">×</button></div>
+      <input id="memberRef" type="hidden">
+      <div class="form-grid two-col">
+        <label>Name<input id="memberName" maxlength="100" required></label>
+        <label>Display name<input id="memberDisplayName" maxlength="100"></label>
+        <label>Pronouns<input id="memberPronouns" maxlength="100"></label>
+        <label>Color<input id="memberColor" maxlength="7" placeholder="#8b7cf6" pattern="#?[0-9A-Fa-f]{6}"></label>
+        <label>Birthday<input id="memberBirthday" placeholder="YYYY-MM-DD"></label>
+        <label>Avatar URL<input id="memberAvatar" type="url" maxlength="256" placeholder="https://..."></label>
+      </div>
+      <label>Description<textarea id="memberDescription" maxlength="1000" rows="5"></textarea></label>
+      <div class="modal-footer"><button class="secondary-button close-dialog" type="button">Cancel</button><button id="saveMemberButton" class="primary-button" type="submit">Save member</button></div>
+      <p id="memberFormError" class="form-error" role="alert" hidden></p>
+    </form>
+  </dialog>
+
+  <dialog id="frontDialog" class="modal-dialog front-dialog">
+    <form id="frontForm" class="modal-card" method="dialog">
+      <div class="modal-heading"><div><p class="eyebrow">PluralKit switch</p><h3 id="frontDialogTitle">Manage front</h3></div><button class="icon-button close-dialog" type="button" aria-label="Close">×</button></div>
+      <fieldset class="front-mode-fieldset"><legend>Action</legend><label class="radio-card"><input type="radio" name="frontMode" value="replace" checked><span><strong>New switch</strong><small>Replace the current front with your selection.</small></span></label><label class="radio-card"><input type="radio" name="frontMode" value="add"><span><strong>Add co-fronter</strong><small>Keep current fronters and add your selection.</small></span></label></fieldset>
+      <label class="dialog-search">Find members<input id="frontMemberSearch" type="search" placeholder="Search by name"></label>
+      <div id="frontMemberPicker" class="front-member-picker"></div>
+      <label class="check-row compact-check"><input id="customSwitchTimeEnabled" type="checkbox"><span><strong>Set a custom start time</strong><small>Otherwise the switch starts now.</small></span></label>
+      <label id="customSwitchTimeRow" hidden>Start time<input id="customSwitchTime" type="datetime-local"></label>
+      <div class="modal-footer"><button class="secondary-button close-dialog" type="button">Cancel</button><button id="saveFrontButton" class="primary-button" type="submit">Log switch</button></div>
+      <p id="frontFormError" class="form-error" role="alert" hidden></p>
+    </form>
+  </dialog>
+
+  <dialog id="historyDialog" class="modal-dialog">
+    <form id="historyForm" class="modal-card" method="dialog">
+      <div class="modal-heading"><div><p class="eyebrow">Switch entry</p><h3>Edit front history</h3></div><button class="icon-button close-dialog" type="button" aria-label="Close">×</button></div>
+      <input id="historySwitchId" type="hidden">
+      <label>Start time<input id="historyTimestamp" type="datetime-local" required></label>
+      <fieldset><legend>Members</legend><div id="historyMemberPicker" class="front-member-picker"></div></fieldset>
+      <div class="modal-footer modal-footer-split"><button id="deleteSwitchButton" class="text-button danger-text" type="button">Delete entry</button><div><button class="secondary-button close-dialog" type="button">Cancel</button><button id="saveHistoryButton" class="primary-button" type="submit">Save changes</button></div></div>
+      <p id="historyFormError" class="form-error" role="alert" hidden></p>
+    </form>
+  </dialog>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
