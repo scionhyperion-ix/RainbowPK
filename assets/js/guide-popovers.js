@@ -29,6 +29,22 @@
     }
   }
 
+  function placeFrontTimingGuide(wrapper) {
+    const heading = document.querySelector('.current-front-panel .panel-heading');
+    const timer = document.getElementById('frontDuration');
+    if (!heading || !timer) return;
+
+    let tools = heading.querySelector('.current-front-heading-tools');
+    if (!tools) {
+      tools = document.createElement('div');
+      tools.className = 'current-front-heading-tools';
+      heading.append(tools);
+    }
+
+    if (timer.parentElement !== tools) tools.append(timer);
+    tools.insertBefore(wrapper, timer);
+  }
+
   function enhanceGuide(content, config) {
     if (!content || content.dataset.guidePopoverReady === 'true') return;
     content.dataset.guidePopoverReady = 'true';
@@ -58,6 +74,8 @@
     const parent = content.parentNode;
     parent.insertBefore(wrapper, content);
     wrapper.append(button, content);
+
+    if (config.kind === 'front-timing') placeFrontTimingGuide(wrapper);
 
     const hiddenObserver = new MutationObserver(() => syncWrapperVisibility(wrapper, content));
     hiddenObserver.observe(content, { attributes: true, attributeFilter: ['hidden'] });
