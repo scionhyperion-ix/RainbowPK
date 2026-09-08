@@ -5,52 +5,54 @@
     min-height: 0 !important;
   }
 
+  /* Keep the banner as its own clean block on phones. */
   #homeRoute .system-summary-panel .system-banner {
-    height: 112px !important;
+    height: 96px !important;
   }
 
+  /* No desktop-style overlap on mobile. */
   #homeRoute .system-summary-panel .system-summary-content {
-    position: relative;
-    z-index: 2;
+    position: static !important;
     display: grid !important;
-    grid-template-columns: 64px minmax(0, 1fr);
-    align-items: start;
-    gap: 12px;
-    margin: -32px 0 0 !important;
-    padding: 0 16px 16px !important;
+    grid-template-columns: 56px minmax(0, 1fr);
+    align-items: center;
+    gap: 11px;
+    margin: 0 !important;
+    padding: 13px 15px 15px !important;
     transform: none !important;
   }
 
   #homeRoute .system-summary-panel .system-avatar.large {
-    width: 64px !important;
-    height: 64px !important;
-    min-width: 64px;
-    border-radius: 18px !important;
-    align-self: start;
+    width: 56px !important;
+    height: 56px !important;
+    min-width: 56px;
+    border-radius: 16px !important;
+    align-self: center;
   }
 
   #homeRoute .system-summary-panel .system-summary-content > div:last-child {
     min-width: 0;
-    padding-top: 37px;
+    padding: 0 !important;
+    align-self: center;
   }
 
   #homeRoute .system-summary-panel .system-summary-content .eyebrow {
-    margin: 0 0 5px;
-    font-size: .62rem;
+    margin: 0 0 4px;
+    font-size: .61rem;
     line-height: 1.2;
   }
 
   #homeRoute .system-summary-panel .system-summary-content h3 {
     margin: 0;
     max-width: 100%;
-    font-size: 1.05rem !important;
-    line-height: 1.22;
+    font-size: 1rem !important;
+    line-height: 1.2;
     overflow-wrap: anywhere;
   }
 
   #homeRoute .system-summary-panel .system-summary-content .muted {
-    margin: 5px 0 0;
-    font-size: .73rem !important;
+    margin: 4px 0 0;
+    font-size: .71rem !important;
     line-height: 1.3;
     overflow-wrap: anywhere;
   }
@@ -62,7 +64,7 @@
 
   #homeRoute .system-summary-panel .stats-row > div {
     min-width: 0;
-    padding: 12px 5px !important;
+    padding: 11px 4px !important;
   }
 
   #homeRoute .system-summary-panel .stats-row strong,
@@ -73,68 +75,67 @@
   }
 
   #homeRoute .system-summary-panel .stats-row strong {
-    font-size: .9rem !important;
+    font-size: .88rem !important;
   }
 
   #homeRoute .system-summary-panel .stats-row span {
-    font-size: .61rem !important;
+    font-size: .6rem !important;
     white-space: nowrap;
   }
 
   #homeRoute .system-summary-panel .top-fronter-section {
-    margin: 12px 14px 14px !important;
-    padding: 12px !important;
-    border-radius: 14px;
+    margin: 11px 13px 13px !important;
+    padding: 11px !important;
+    border-radius: 13px;
   }
 
   #homeRoute .system-summary-panel .top-fronter-eyebrow {
-    margin-bottom: 9px;
+    margin-bottom: 8px;
   }
 
   #homeRoute .system-summary-panel .top-fronter-row {
-    gap: 10px;
+    gap: 9px;
   }
 
   #homeRoute .system-summary-panel .top-fronter-avatar {
-    width: 42px !important;
-    height: 42px !important;
-    flex-basis: 42px !important;
-    border-radius: 12px !important;
+    width: 40px !important;
+    height: 40px !important;
+    flex-basis: 40px !important;
+    border-radius: 11px !important;
   }
 
   #homeRoute .system-summary-panel .top-fronter-copy strong {
     white-space: normal;
     overflow: visible;
     text-overflow: clip;
-    font-size: .82rem;
-    line-height: 1.25;
+    font-size: .8rem;
+    line-height: 1.22;
   }
 
   #homeRoute .system-summary-panel .top-fronter-copy span {
-    font-size: .68rem;
+    font-size: .66rem;
   }
 }
 
 @media (max-width: 390px) {
+  #homeRoute .system-summary-panel .system-banner {
+    height: 88px !important;
+  }
+
   #homeRoute .system-summary-panel .system-summary-content {
-    grid-template-columns: 58px minmax(0, 1fr);
-    gap: 10px;
-    margin-top: -29px !important;
-    padding-inline: 13px !important;
+    grid-template-columns: 52px minmax(0, 1fr);
+    gap: 9px;
+    padding: 11px 12px 13px !important;
   }
 
   #homeRoute .system-summary-panel .system-avatar.large {
-    width: 58px !important;
-    height: 58px !important;
-    min-width: 58px;
-    border-radius: 16px !important;
-  }
-
-  #homeRoute .system-summary-panel .system-summary-content > div:last-child {
-    padding-top: 34px;
+    width: 52px !important;
+    height: 52px !important;
+    min-width: 52px;
+    border-radius: 15px !important;
   }
 
   #homeRoute .system-summary-panel .system-summary-content h3 {
-    font-size: .96rem !important;
+    font-size: .94rem !important;
   }
 }
