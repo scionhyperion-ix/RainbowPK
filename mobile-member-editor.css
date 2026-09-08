@@ -70,7 +70,6 @@
     max-height: calc(100dvh - 58px);
   }
 
-  /* Tiny preview header instead of a tall profile card. */
   .member-live-preview {
     margin: 9px 10px 0;
     overflow: hidden;
@@ -162,7 +161,6 @@
     -webkit-overflow-scrolling: touch;
   }
 
-  /* Compact pill tabs instead of three full-width bars. */
   .mobile-member-tabs {
     position: sticky;
     top: 0;
@@ -334,39 +332,73 @@
     overflow-wrap: anywhere;
   }
 
-  /* Respect the hidden state. This prevents edit and review actions showing together. */
   #memberEditFooter[hidden],
   #memberReviewFooter[hidden] {
     display: none !important;
   }
 
-  /* Compact actions rather than full-width button bars. */
+  /* Mobile actions: quiet navigation on the left, one clear primary action on the right. */
   .member-editor-footer {
     position: static !important;
     display: flex !important;
     align-items: center;
-    justify-content: flex-end;
-    gap: 6px !important;
+    justify-content: space-between;
+    gap: 10px !important;
     margin-top: 8px !important;
-    padding-top: 8px !important;
+    padding: 9px 2px 1px !important;
     border-top: 1px solid var(--line);
-    background: var(--theme-surface-2) !important;
+    background: transparent !important;
     backdrop-filter: none !important;
   }
 
-  .member-editor-footer .primary-button,
   .member-editor-footer .secondary-button {
     width: auto !important;
     min-width: 0 !important;
-    min-height: 34px !important;
-    padding: 7px 11px !important;
-    border-radius: 9px;
+    min-height: 32px !important;
+    padding: 5px 6px !important;
+    border: 0 !important;
+    border-radius: 8px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: var(--muted) !important;
     font-size: .66rem !important;
+    font-weight: 700;
     white-space: nowrap;
   }
 
+  .member-editor-footer .secondary-button:hover,
+  .member-editor-footer .secondary-button:focus-visible {
+    background: var(--accent-soft) !important;
+    color: var(--text) !important;
+  }
+
+  #backToMemberEditButton::before {
+    content: '←';
+    margin-right: 5px;
+  }
+
   .member-editor-footer .primary-button {
-    min-width: 112px !important;
+    width: auto !important;
+    min-width: 0 !important;
+    min-height: 34px !important;
+    padding: 7px 13px !important;
+    border-radius: 999px !important;
+    font-size: .67rem !important;
+    font-weight: 800;
+    white-space: nowrap;
+    box-shadow: none !important;
+  }
+
+  #saveMemberButton::after {
+    content: '›';
+    margin-left: 6px;
+    font-size: .9em;
+  }
+
+  #confirmMemberSaveButton::after {
+    content: '✓';
+    margin-left: 6px;
+    font-size: .85em;
   }
 }
 
@@ -405,13 +437,16 @@
     grid-column: 1 !important;
   }
 
-  .member-editor-footer .primary-button,
+  .member-editor-footer {
+    gap: 6px !important;
+  }
+
   .member-editor-footer .secondary-button {
-    padding-inline: 9px !important;
-    font-size: .63rem !important;
+    font-size: .62rem !important;
   }
 
   .member-editor-footer .primary-button {
-    min-width: 102px !important;
+    padding-inline: 11px !important;
+    font-size: .63rem !important;
   }
 }
