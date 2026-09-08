@@ -117,10 +117,19 @@
     document.head.append(link);
   }
 
+  function ensureScript(src) {
+    if (document.querySelector(`script[src="${src}"]`)) return;
+    const script = document.createElement('script');
+    script.src = src;
+    script.defer = true;
+    document.head.append(script);
+  }
+
   function installMobileStyles() {
     ensureStylesheet('mobile.css', '(max-width: 760px)');
     ensureStylesheet('mobile-front-timers.css', '(max-width: 760px)');
-    ensureStylesheet('mobile-member-editor.css?v=1', '(max-width: 760px)');
+    ensureStylesheet('mobile-member-editor.css?v=2', '(max-width: 760px)');
+    ensureScript('mobile-member-editor-tabs.js?v=1');
   }
 
   function installSiteChrome() {
