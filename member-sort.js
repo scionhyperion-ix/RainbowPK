@@ -4,6 +4,10 @@
   const SORT_KEY = 'rainbow_member_sort';
   const validSorts = new Set(['az', 'za', 'newest', 'oldest']);
 
+  memberLabel = function memberNameFirst(member) {
+    return member?.name || member?.display_name || 'Unknown member';
+  };
+
   if (!document.querySelector('link[href="member-sort.css"]')) {
     const styleLink = document.createElement('link');
     styleLink.rel = 'stylesheet';
@@ -128,7 +132,7 @@
       h3.textContent = memberLabel(member);
 
       const p = document.createElement('p');
-      p.textContent = member.pronouns || member.name || member.id;
+      p.textContent = member.display_name || member.pronouns || member.id;
 
       nameWrap.append(h3, p);
       top.append(nameWrap);
