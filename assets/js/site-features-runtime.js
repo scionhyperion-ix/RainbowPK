@@ -12,4 +12,23 @@
     const list = document.querySelector('#memberReviewList');
     if (list) list.dataset.featuresAdded = 'false';
   });
+
+  function ensureStylesheet(href) {
+    if (document.querySelector(`link[href="${href}"]`)) return;
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = href;
+    document.head.append(link);
+  }
+
+  function loadScript(src) {
+    if (document.querySelector(`script[src="${src}"]`)) return;
+    const script = document.createElement('script');
+    script.src = src;
+    script.async = false;
+    document.body.append(script);
+  }
+
+  ensureStylesheet('assets/css/history-behavior.css?v=1');
+  loadScript('assets/js/history-behavior.js?v=1');
 })();
