@@ -108,13 +108,18 @@
     syncThemeButtons(document.documentElement.dataset.theme || 'twilight');
   }
 
-  function installMobileStyles() {
-    if (document.querySelector('link[href="mobile.css"]')) return;
+  function ensureStylesheet(href, media = '') {
+    if (document.querySelector(`link[href="${href}"]`)) return;
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = 'mobile.css';
-    link.media = '(max-width: 760px)';
+    link.href = href;
+    if (media) link.media = media;
     document.head.append(link);
+  }
+
+  function installMobileStyles() {
+    ensureStylesheet('mobile.css', '(max-width: 760px)');
+    ensureStylesheet('mobile-front-timers.css', '(max-width: 760px)');
   }
 
   function installSiteChrome() {
