@@ -164,7 +164,7 @@
   width: 42px;
   height: 4px;
   border-radius: 999px;
-  margin: 16px 0 12px;
+  margin: 16px auto 12px;
   background: var(--accent);
 }
 
