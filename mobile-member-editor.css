@@ -1,0 +1,375 @@
+/* Mobile-only member editor redesign. Desktop is intentionally untouched. */
+@media (max-width: 760px) {
+  .member-editor-dialog {
+    width: min(calc(100vw - 12px), 620px) !important;
+    max-width: none !important;
+    max-height: calc(100dvh - 12px) !important;
+    margin: auto;
+    padding: 0 !important;
+  }
+
+  .member-editor-dialog::backdrop {
+    background: rgba(0, 0, 0, .72);
+  }
+
+  .member-editor-card {
+    width: 100%;
+    max-height: calc(100dvh - 12px) !important;
+    padding: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden;
+    border-radius: 18px !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Compact header */
+  .member-editor-heading {
+    position: static !important;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 0 !important;
+    padding: 14px 14px 12px !important;
+    border-bottom: 1px solid var(--line);
+    background: transparent !important;
+    backdrop-filter: none !important;
+  }
+
+  .member-editor-heading > div:first-child {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .member-editor-heading .eyebrow {
+    margin-bottom: 3px;
+    font-size: .6rem;
+  }
+
+  .member-editor-heading h3 {
+    margin: 0;
+    font-size: 1.04rem !important;
+    line-height: 1.2;
+  }
+
+  .member-editor-subtitle {
+    margin: 4px 0 0 !important;
+    max-width: none;
+    font-size: .66rem !important;
+    line-height: 1.4;
+  }
+
+  .member-editor-heading .icon-button {
+    flex: 0 0 34px;
+    width: 34px !important;
+    min-width: 34px !important;
+    height: 34px !important;
+    padding: 0 !important;
+    border-radius: 10px;
+  }
+
+  .member-editor-layout {
+    display: block !important;
+    min-height: 0 !important;
+  }
+
+  /* Preview becomes a self-contained mobile profile card. */
+  .member-live-preview {
+    margin: 12px 12px 0;
+    overflow: hidden;
+    border: 1px solid var(--line) !important;
+    border-radius: 15px;
+    background: color-mix(in srgb, var(--theme-surface-1) 88%, transparent) !important;
+  }
+
+  .member-preview-banner {
+    height: 82px !important;
+    border-radius: 0;
+  }
+
+  .member-preview-body {
+    display: grid;
+    grid-template-columns: 58px minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto;
+    column-gap: 11px;
+    row-gap: 2px;
+    align-items: center;
+    padding: 11px 12px 12px !important;
+  }
+
+  .member-preview-avatar-wrap {
+    grid-column: 1;
+    grid-row: 1 / 4;
+    align-self: start;
+    width: 58px !important;
+    height: 58px !important;
+    margin: 0 !important;
+    position: relative;
+  }
+
+  .member-preview-avatar,
+  .member-preview-avatar.fallback-avatar,
+  #memberPreviewAvatarFallback {
+    width: 58px !important;
+    height: 58px !important;
+    border: 2px solid var(--line-strong) !important;
+    border-radius: 15px !important;
+    font-size: .92rem !important;
+  }
+
+  .member-preview-color {
+    grid-column: 1;
+    grid-row: 4;
+    justify-self: center;
+    width: 30px !important;
+    height: 3px !important;
+    margin: 6px 0 0 !important;
+  }
+
+  .member-preview-body h4 {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+    margin: 0 !important;
+    overflow-wrap: anywhere;
+    font-size: .94rem !important;
+    line-height: 1.2;
+  }
+
+  .member-preview-subname {
+    grid-column: 2;
+    grid-row: 2;
+    min-width: 0;
+    margin: 2px 0 0 !important;
+    overflow-wrap: anywhere;
+    font-size: .67rem !important;
+  }
+
+  .member-preview-pronouns {
+    grid-column: 2;
+    grid-row: 3;
+    min-width: 0;
+    margin: 3px 0 0 !important;
+    overflow-wrap: anywhere;
+    font-size: .67rem !important;
+  }
+
+  .member-preview-description {
+    grid-column: 1 / -1;
+    grid-row: 5;
+    margin: 10px 0 0 !important;
+    padding-top: 9px;
+    border-top: 1px solid var(--line);
+    max-height: 4.2em;
+    overflow: hidden;
+    color: var(--muted);
+    font-size: .67rem !important;
+    line-height: 1.4 !important;
+  }
+
+  /* The form already explains image links, so remove duplicate preview hint on phones. */
+  .member-preview-hint {
+    display: none !important;
+  }
+
+  .member-editor-fields {
+    padding: 12px !important;
+  }
+
+  #memberFieldsStage,
+  #memberReviewStage {
+    min-width: 0;
+  }
+
+  .editor-section-heading {
+    display: block !important;
+    margin: 0 0 8px !important;
+    padding: 0 !important;
+  }
+
+  .editor-section-heading span {
+    display: block;
+    font-size: .78rem !important;
+    font-weight: 800;
+  }
+
+  .editor-section-heading small {
+    display: block;
+    margin-top: 2px;
+    color: var(--muted);
+    font-size: .61rem !important;
+    line-height: 1.35;
+    text-align: left !important;
+  }
+
+  .member-editor-fields .form-grid.two-col {
+    display: grid;
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+
+  .member-editor-fields label,
+  .image-link-fields label,
+  .description-field {
+    min-width: 0;
+  }
+
+  .member-editor-fields label {
+    gap: 5px !important;
+    font-size: .7rem !important;
+  }
+
+  .member-editor-fields input,
+  .member-editor-fields textarea {
+    width: 100%;
+    min-width: 0;
+    padding: 9px 10px !important;
+    border-radius: 10px !important;
+    font-size: 16px !important;
+    line-height: 1.25;
+  }
+
+  .member-editor-fields input {
+    min-height: 40px;
+  }
+
+  .member-editor-fields textarea {
+    min-height: 76px !important;
+    resize: vertical;
+  }
+
+  /* Profile images become their own lightweight block. */
+  .media-heading {
+    margin-top: 13px !important;
+    padding-top: 12px !important;
+    border-top: 1px solid var(--line);
+  }
+
+  .image-link-fields {
+    display: grid;
+    gap: 8px !important;
+  }
+
+  .image-link-fields label {
+    padding: 9px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--theme-surface-1) 72%, transparent);
+  }
+
+  .image-link-fields label > span {
+    font-size: .69rem !important;
+  }
+
+  .image-link-fields label > small {
+    font-size: .6rem !important;
+    line-height: 1.35;
+  }
+
+  .description-field {
+    display: grid;
+    margin-top: 12px !important;
+    padding-top: 12px;
+    border-top: 1px solid var(--line);
+  }
+
+  /* Review screen is compact and readable. */
+  .review-callout {
+    margin-bottom: 9px !important;
+    padding: 10px 11px !important;
+    border-radius: 11px;
+  }
+
+  .review-callout strong {
+    font-size: .75rem;
+  }
+
+  .review-callout p {
+    margin-top: 3px;
+    font-size: .63rem !important;
+    line-height: 1.4;
+  }
+
+  .member-review-list > div {
+    display: grid !important;
+    grid-template-columns: 92px minmax(0, 1fr) !important;
+    gap: 8px !important;
+    padding: 8px 0 !important;
+  }
+
+  .member-review-list span {
+    font-size: .62rem !important;
+  }
+
+  .member-review-list strong {
+    min-width: 0;
+    font-size: .66rem !important;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+
+  /* Actions stay simple, with the main action easier to hit. */
+  .member-editor-footer {
+    position: static !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+    gap: 8px !important;
+    margin-top: 13px !important;
+    padding-top: 11px !important;
+    border-top: 1px solid var(--line);
+    background: transparent !important;
+    backdrop-filter: none !important;
+  }
+
+  .member-editor-footer .primary-button,
+  .member-editor-footer .secondary-button {
+    width: 100%;
+    min-height: 40px !important;
+    padding: 8px 9px !important;
+    border-radius: 10px;
+    font-size: .72rem !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .member-editor-dialog {
+    width: calc(100vw - 8px) !important;
+    max-height: calc(100dvh - 8px) !important;
+  }
+
+  .member-editor-card {
+    max-height: calc(100dvh - 8px) !important;
+    border-radius: 14px !important;
+  }
+
+  .member-live-preview {
+    margin-inline: 9px;
+  }
+
+  .member-editor-fields {
+    padding: 10px !important;
+  }
+
+  .member-preview-banner {
+    height: 72px !important;
+  }
+
+  .member-preview-body {
+    grid-template-columns: 52px minmax(0, 1fr);
+    column-gap: 9px;
+    padding: 9px 10px 10px !important;
+  }
+
+  .member-preview-avatar-wrap,
+  .member-preview-avatar,
+  .member-preview-avatar.fallback-avatar,
+  #memberPreviewAvatarFallback {
+    width: 52px !important;
+    height: 52px !important;
+  }
+
+  .member-review-list > div {
+    grid-template-columns: 76px minmax(0, 1fr) !important;
+  }
+}
