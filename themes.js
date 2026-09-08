@@ -128,7 +128,7 @@
   function installMobileStyles() {
     ensureStylesheet('mobile.css', '(max-width: 760px)');
     ensureStylesheet('mobile-front-timers.css', '(max-width: 760px)');
-    ensureStylesheet('mobile-member-editor.css?v=2', '(max-width: 760px)');
+    ensureStylesheet('mobile-member-editor.css?v=3', '(max-width: 760px)');
     ensureScript('mobile-member-editor-tabs.js?v=1');
   }
 
