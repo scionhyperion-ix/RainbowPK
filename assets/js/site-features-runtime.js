@@ -35,4 +35,5 @@
   loadScript('assets/js/history-behavior.js?v=1');
   loadScript('assets/js/member-editor-v2.js?v=1');
   loadScript('assets/js/groups-route.js?v=1');
+  loadScript('assets/js/groups-route-runtime.js?v=1');
 })();
