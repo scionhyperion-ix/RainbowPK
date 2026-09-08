@@ -411,7 +411,7 @@ For example:
 ```text
 Share this:
 
-https://example.github.io/rainbow/
+https://scionhyperion-ix.github.io/RainbowPK/
 
 Do not share this:
 
