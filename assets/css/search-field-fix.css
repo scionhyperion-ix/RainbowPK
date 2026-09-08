@@ -1,0 +1,37 @@
+/* Keep search controls as one visual field. The outer .search-field owns the
+   surface and focus treatment, while the actual input stays transparent. */
+.search-field {
+  min-width: 0;
+}
+
+.search-field > span {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  min-width: 18px;
+  pointer-events: none;
+}
+
+.search-field > input {
+  flex: 1 1 auto;
+  width: auto !important;
+  min-width: 0;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.search-field > input:hover,
+.search-field > input:focus,
+.search-field > input:focus-visible {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.search-field:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 28%, transparent);
+}
