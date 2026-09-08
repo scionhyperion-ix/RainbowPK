@@ -1,0 +1,60 @@
+/* Members sorting */
+.member-sort-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: .8rem;
+  font-weight: 650;
+}
+
+.member-sort-control > span {
+  white-space: nowrap;
+}
+
+.member-sort-control select {
+  min-width: 150px;
+  height: 42px;
+  padding: 0 36px 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--text);
+  background:
+    linear-gradient(180deg, var(--theme-surface-1), var(--theme-surface-2));
+  font: inherit;
+  cursor: pointer;
+}
+
+.member-sort-control select:hover {
+  border-color: var(--line-strong);
+}
+
+.member-sort-control select:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 2px;
+}
+
+.member-sort-control option {
+  color: var(--text);
+  background: var(--theme-surface-2);
+}
+
+@media (max-width: 760px) {
+  #membersRoute .toolbar-row {
+    flex-wrap: wrap;
+  }
+
+  #membersRoute .search-field {
+    flex: 1 1 100%;
+    max-width: none;
+  }
+
+  .member-sort-control {
+    flex: 1 1 auto;
+  }
+
+  .member-sort-control select {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+}
