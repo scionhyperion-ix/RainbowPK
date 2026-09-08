@@ -206,6 +206,7 @@
     );
 
     const members = sortMembers(filtered, sortMode);
+    const useMobileBanners = window.matchMedia('(max-width: 760px)').matches;
 
     els.memberGrid.replaceChildren();
     els.membersEmpty.hidden = members.length > 0;
@@ -214,6 +215,26 @@
       const card = document.createElement('button');
       card.type = 'button';
       card.className = 'member-card';
+
+      if (useMobileBanners && member.banner) {
+        const bannerUrl = typeof safeUrl === 'function' ? safeUrl(member.banner) : null;
+        if (bannerUrl) {
+          const banner = document.createElement('img');
+          banner.className = 'member-card-banner';
+          banner.src = bannerUrl;
+          banner.alt = '';
+          banner.loading = 'lazy';
+          banner.decoding = 'async';
+          banner.referrerPolicy = 'no-referrer';
+          banner.setAttribute('aria-hidden', 'true');
+          banner.addEventListener('error', () => {
+            banner.remove();
+            card.classList.remove('has-member-banner');
+          }, { once: true });
+          card.classList.add('has-member-banner');
+          card.append(banner);
+        }
+      }
 
       const top = document.createElement('div');
       top.className = 'member-card-top';
