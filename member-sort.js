@@ -130,18 +130,28 @@
 
       const h3 = document.createElement('h3');
       h3.textContent = memberLabel(member);
+      nameWrap.append(h3);
 
-      const p = document.createElement('p');
-      const secondary = [];
-      if (member.display_name && member.display_name !== member.name) {
-        secondary.push(member.display_name);
+      if (member.display_name) {
+        const displayName = document.createElement('p');
+        displayName.className = 'member-card-display-name';
+        displayName.textContent = member.display_name;
+        nameWrap.append(displayName);
       }
+
       if (member.pronouns) {
-        secondary.push(member.pronouns);
+        const pronouns = document.createElement('p');
+        pronouns.className = 'member-card-pronouns';
+        pronouns.textContent = member.pronouns;
+        nameWrap.append(pronouns);
       }
-      p.textContent = secondary.length ? secondary.join(' • ') : member.id;
 
-      nameWrap.append(h3, p);
+      if (!member.display_name && !member.pronouns) {
+        const id = document.createElement('p');
+        id.textContent = member.id;
+        nameWrap.append(id);
+      }
+
       top.append(nameWrap);
 
       const bar = document.createElement('div');
