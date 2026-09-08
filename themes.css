@@ -191,6 +191,42 @@ textarea:focus {
     linear-gradient(135deg, var(--theme-banner-1), color-mix(in srgb, var(--theme-surface-2) 72%, transparent));
 }
 
+/* Let only the system avatar overlap the banner. Keep the system text below it. */
+.system-summary-content {
+  transform: none;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 0 24px 18px;
+}
+
+.system-summary-content .system-avatar.large {
+  margin-top: -32px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .22);
+}
+
+.system-summary-content > div:last-child {
+  min-width: 0;
+  padding-top: 13px;
+}
+
+.system-summary-content h3 {
+  line-height: 1.15;
+}
+
+.system-summary-content .eyebrow {
+  margin-bottom: 6px;
+}
+
+.system-summary-content .muted {
+  line-height: 1.35;
+}
+
+.stats-row {
+  margin-top: 0;
+}
+
 .member-live-preview {
   background: linear-gradient(180deg, var(--theme-surface-1), var(--theme-surface-2));
 }
@@ -383,6 +419,10 @@ textarea:focus {
   .front-person .front-member-since {
     margin-left: 0;
     text-align: left;
+  }
+
+  .system-summary-content {
+    padding-inline: 18px;
   }
 }
 
