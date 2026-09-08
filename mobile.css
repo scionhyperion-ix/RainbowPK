@@ -1,299 +1,345 @@
 /* Rainbow mobile layout
-   Desktop styles remain unchanged. */
+   These rules only apply on phones and small tablets.
+   Desktop remains unchanged. */
 
 @media (max-width: 760px) {
   :root {
-    --mobile-page-gap: 12px;
+    --mobile-gap: 12px;
   }
 
+  html,
   body {
     overflow-x: hidden;
   }
 
+  body {
+    background-attachment: scroll;
+  }
+
   .main-column {
-    padding: 0 var(--mobile-page-gap) calc(82px + env(safe-area-inset-bottom));
+    padding: 0 var(--mobile-gap) calc(76px + env(safe-area-inset-bottom));
   }
 
   .route-view {
     width: 100%;
   }
 
+  /* Header */
   .topbar {
-    min-height: 76px;
+    min-height: 70px;
     height: auto;
-    padding: 14px 2px 12px;
-    gap: 10px;
+    padding: 12px 0 10px;
+    gap: 8px;
     align-items: center;
   }
 
   .topbar h2 {
-    font-size: 1.38rem;
+    font-size: 1.3rem;
   }
 
   .topbar .eyebrow {
-    margin-bottom: 4px;
-    font-size: .64rem;
+    margin-bottom: 3px;
+    font-size: .62rem;
   }
 
   .topbar-actions {
-    gap: 6px;
+    gap: 5px;
   }
 
   .topbar-actions .primary-button,
   .topbar-actions .secondary-button {
-    padding: 8px 10px;
-    border-radius: 10px;
-    font-size: .75rem;
+    min-height: 34px;
+    padding: 6px 9px;
+    border-radius: 9px;
+    font-size: .7rem;
     white-space: nowrap;
   }
 
+  /* Home: system summary comes first on mobile only. */
   .hero-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .hero-grid .system-summary-panel {
+    order: 1;
+  }
+
+  .hero-grid .current-front-panel {
+    order: 2;
   }
 
   .panel {
-    border-radius: 18px;
+    border-radius: 16px;
+    box-shadow: none;
   }
 
-  .current-front-panel {
-    min-height: 0;
-    padding: 18px;
-  }
-
-  .panel-heading {
-    gap: 10px;
-  }
-
-  .panel-heading h3,
-  .section-panel h3,
-  .settings-grid h3 {
-    font-size: 1.08rem;
-  }
-
-  .current-front-members {
-    gap: 10px;
-    padding: 18px 0;
-  }
-
-  .current-front-members .front-person {
-    padding: 11px;
-    border-radius: 14px;
-  }
-
-  .front-person img,
-  .front-person .member-chip-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 12px;
-  }
-
-  .front-person strong {
-    font-size: .86rem;
-  }
-
-  .front-person small,
-  .front-member-since {
-    font-size: .68rem;
-  }
-
-  .front-member-timer {
-    min-width: 82px;
-    padding: 4px 6px;
-    font-size: .7rem;
-  }
-
-  .panel-actions {
-    gap: 8px;
-  }
-
-  .panel-actions .primary-button,
-  .panel-actions .secondary-button,
-  .panel-actions .text-button {
-    padding: 9px 11px;
-    font-size: .78rem;
-  }
-
+  /* Connected system */
   .system-summary-panel {
     min-height: 0;
   }
 
   .system-banner {
-    height: 104px;
+    height: 96px;
   }
 
   .system-summary-content {
-    gap: 11px;
-    padding: 0 17px;
-    transform: translateY(-22px);
+    gap: 10px;
+    padding: 0 15px;
+    transform: translateY(-20px);
   }
 
   .system-summary-content .system-avatar.large {
-    width: 58px;
-    height: 58px;
-    border-radius: 17px;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
   }
 
   .system-summary-content h3 {
-    font-size: 1.12rem;
+    font-size: 1.08rem;
   }
 
   .system-summary-content .muted {
-    font-size: .78rem;
+    font-size: .75rem;
   }
 
   .stats-row div {
-    padding: 14px 8px;
+    padding: 12px 6px;
   }
 
   .stats-row strong {
-    font-size: .98rem;
+    font-size: .92rem;
   }
 
   .stats-row span {
-    font-size: .65rem;
+    font-size: .62rem;
   }
 
   .top-fronter-section {
-    padding: 14px 17px 17px;
+    padding: 12px 15px 15px;
   }
 
   .top-fronter-row {
-    padding: 10px;
+    padding: 8px 10px;
   }
 
   .top-fronter-avatar {
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
-  }
-
-  .section-panel {
-    padding: 17px;
-    margin-top: 12px;
-  }
-
-  .section-copy {
-    margin: 6px 0 13px;
-    font-size: .78rem;
-  }
-
-  .member-chip-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-  }
-
-  .member-chip {
-    gap: 8px;
-    padding: 8px;
-    border-radius: 12px;
-  }
-
-  .member-chip img,
-  .member-chip-avatar {
     width: 38px;
     height: 38px;
     border-radius: 11px;
   }
 
+  /* Current front */
+  .current-front-panel {
+    min-height: 0;
+    padding: 15px;
+  }
+
+  .panel-heading {
+    gap: 8px;
+  }
+
+  .panel-heading h3,
+  .section-panel h3,
+  .settings-grid h3 {
+    font-size: 1.02rem;
+  }
+
+  #frontDuration {
+    min-width: 78px;
+    height: 25px;
+    padding: 0 8px;
+    font-size: .68rem;
+  }
+
+  .current-front-members {
+    gap: 8px;
+    padding: 14px 0;
+  }
+
+  .current-front-members .front-person {
+    padding: 9px;
+    border-radius: 12px;
+  }
+
+  .front-person img,
+  .front-person .member-chip-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+  }
+
+  .front-person strong {
+    font-size: .82rem;
+  }
+
+  .front-person small,
+  .front-member-since {
+    font-size: .64rem;
+  }
+
+  .front-member-timing {
+    margin-top: 4px;
+    gap: 5px;
+  }
+
+  .front-member-timer {
+    min-width: 74px;
+    padding: 3px 5px;
+    font-size: .65rem;
+  }
+
+  .panel-actions {
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .panel-actions .primary-button,
+  .panel-actions .secondary-button,
+  .panel-actions .text-button {
+    min-height: 34px;
+    padding: 6px 9px;
+    border-radius: 9px;
+    font-size: .7rem;
+  }
+
+  /* General sections */
+  .section-panel {
+    padding: 15px;
+    margin-top: 10px;
+  }
+
+  .section-copy {
+    margin: 5px 0 11px;
+    font-size: .75rem;
+  }
+
+  .member-chip-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .member-chip {
+    gap: 7px;
+    padding: 7px;
+    border-radius: 11px;
+  }
+
+  .member-chip img,
+  .member-chip-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+
   .member-chip strong {
-    font-size: .78rem;
+    font-size: .74rem;
   }
 
   .member-chip small {
-    font-size: .66rem;
+    font-size: .62rem;
   }
 
+  /* Members */
   .toolbar-row {
-    gap: 8px;
-    margin-bottom: 12px;
+    gap: 7px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
   }
 
   #membersRoute .search-field {
-    min-height: 42px;
+    flex: 1 1 100%;
+    max-width: none;
+    min-height: 40px;
   }
 
   #membersRoute .search-field input {
     min-width: 0;
-    padding-block: 9px;
-    font-size: .82rem;
+    padding-block: 8px;
+    font-size: 16px;
   }
 
   .member-sort-control {
+    flex: 1 1 auto;
     gap: 5px;
-    font-size: .7rem;
+    font-size: .67rem;
   }
 
   .member-sort-control select {
-    height: 40px;
-    min-width: 132px;
-    padding-left: 10px;
-    font-size: .75rem;
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 38px;
+    padding-left: 9px;
+    font-size: .72rem;
   }
 
   #createMemberButton {
-    min-height: 40px;
-    padding: 8px 11px;
-    font-size: .76rem;
+    min-height: 38px;
+    padding: 7px 10px;
+    font-size: .72rem;
   }
 
   .member-card-grid {
-    grid-template-columns: repeat(auto-fill, minmax(205px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
   }
 
   .member-card {
-    padding: 13px;
-    border-radius: 15px;
-  }
-
-  .member-card-top {
-    gap: 10px;
-  }
-
-  .member-card-avatar {
-    width: 46px;
-    height: 46px;
+    padding: 11px;
     border-radius: 13px;
   }
 
+  .member-card-top {
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .member-card-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+  }
+
   .member-card-name h3 {
-    font-size: .9rem;
+    font-size: .82rem;
   }
 
   .member-card-name p {
     margin-top: 2px;
-    font-size: .7rem;
+    font-size: .64rem;
   }
 
   .member-color-bar {
-    inset-inline: 11px;
+    inset-inline: 9px;
   }
 
+  /* Timeline */
   .timeline-row {
-    grid-template-columns: 34px minmax(0, 1fr) auto;
-    gap: 9px;
-    padding: 10px 2px;
+    grid-template-columns: 32px minmax(0, 1fr) auto;
+    gap: 8px;
+    padding: 9px 1px;
   }
 
   .timeline-avatar {
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
   }
 
   .timeline-copy strong {
-    font-size: .78rem;
+    font-size: .74rem;
   }
 
   .timeline-copy small,
   .timeline-time {
-    font-size: .67rem;
+    font-size: .63rem;
   }
 
+  /* Settings */
   .settings-grid {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 10px;
   }
 
   .appearance-panel {
@@ -302,116 +348,144 @@
 
   .theme-options {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
+    gap: 7px;
   }
 
   .theme-option {
-    grid-template-columns: 40px minmax(0, 1fr) 20px;
-    gap: 8px;
-    padding: 9px;
-  }
-
-  .theme-swatch {
-    width: 40px;
-    height: 32px;
-  }
-
-  .theme-option-copy strong {
-    font-size: .77rem;
-  }
-
-  .theme-option-copy small {
-    font-size: .64rem;
-  }
-
-  /* General dialogs */
-  .modal-dialog:not(.member-editor-dialog) {
-    width: min(100% - 16px, 620px);
-    max-height: calc(100dvh - 16px);
-  }
-
-  .modal-dialog:not(.member-editor-dialog) .modal-card {
-    max-height: calc(100dvh - 16px);
-    overflow-y: auto;
-    padding: 18px;
-    border-radius: 18px;
-  }
-
-  .modal-dialog:not(.member-editor-dialog) .modal-heading {
-    gap: 10px;
-  }
-
-  .modal-dialog:not(.member-editor-dialog) .modal-heading h3 {
-    font-size: 1.08rem;
-  }
-
-  .front-member-picker {
-    max-height: 38dvh;
-  }
-
-  .picker-row {
+    grid-template-columns: 36px minmax(0, 1fr) 18px;
+    gap: 7px;
     padding: 8px;
   }
 
-  .picker-avatar {
-    width: 38px;
-    height: 38px;
-    border-radius: 11px;
+  .theme-swatch {
+    width: 36px;
+    height: 28px;
   }
 
-  /* Member editor becomes a compact full-screen mobile editor. */
+  .theme-option-copy strong {
+    font-size: .72rem;
+  }
+
+  .theme-option-copy small {
+    font-size: .6rem;
+  }
+
+  /* General dialogs. No blur-heavy sticky effects on mobile. */
+  .modal-dialog,
+  .modal-dialog:not(.member-editor-dialog),
   .member-editor-dialog {
-    width: 100vw;
-    max-width: 100vw;
-    height: 100dvh;
-    max-height: 100dvh;
-    margin: 0;
+    width: calc(100vw - 12px);
+    max-width: calc(100vw - 12px);
+    max-height: calc(100dvh - 12px);
+    margin: auto;
     padding: 0;
-    border: 0;
   }
 
+  .modal-dialog::backdrop,
   .member-editor-dialog::backdrop {
-    background: rgba(0, 0, 0, .72);
+    background: rgba(0, 0, 0, .62);
   }
 
+  .modal-dialog .modal-card,
   .member-editor-card {
     width: 100%;
-    min-height: 100dvh;
-    max-height: 100dvh;
+    max-height: calc(100dvh - 12px);
     overflow-y: auto;
-    border: 0;
-    border-radius: 0;
+    overscroll-behavior: contain;
+    border-radius: 16px;
+    box-shadow: none;
+  }
+
+  .modal-dialog:not(.member-editor-dialog) .modal-card {
+    padding: 15px;
+  }
+
+  .modal-heading {
+    gap: 8px;
+  }
+
+  .modal-heading h3 {
+    font-size: 1rem;
+  }
+
+  .modal-heading .icon-button {
+    min-width: 36px;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+  }
+
+  /* Front manager */
+  .front-mode-fieldset {
+    gap: 7px;
+  }
+
+  .radio-card {
+    padding: 9px;
+  }
+
+  .radio-card strong {
+    font-size: .78rem;
+  }
+
+  .radio-card small {
+    font-size: .65rem;
+  }
+
+  .front-member-picker {
+    max-height: 34dvh;
+  }
+
+  .picker-row {
+    padding: 7px;
+  }
+
+  .picker-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+
+  .front-dialog .modal-footer,
+  .historyDialog .modal-footer {
+    gap: 6px;
+  }
+
+  .front-dialog .modal-footer .primary-button,
+  .front-dialog .modal-footer .secondary-button,
+  #historyDialog .modal-footer .primary-button,
+  #historyDialog .modal-footer .secondary-button,
+  #historyDialog .modal-footer .text-button {
+    min-height: 35px;
+    padding: 7px 9px;
+    font-size: .7rem;
+  }
+
+  /* Member editor: compact stacked card, not forced full-screen. */
+  .member-editor-card {
+    padding: 0;
   }
 
   .member-editor-heading {
-    position: sticky;
-    top: 0;
-    z-index: 5;
-    padding: 14px 15px 12px;
-    background: color-mix(in srgb, var(--theme-surface-2) 94%, transparent);
-    backdrop-filter: blur(16px);
+    position: static;
+    padding: 13px 14px 11px;
+    background: transparent;
+    backdrop-filter: none;
   }
 
   .member-editor-heading h3 {
-    font-size: 1.08rem;
+    font-size: 1rem;
   }
 
   .member-editor-heading .eyebrow {
-    margin-bottom: 3px;
-    font-size: .62rem;
+    margin-bottom: 2px;
+    font-size: .6rem;
   }
 
   .member-editor-subtitle {
-    margin-top: 4px;
-    font-size: .7rem;
-    line-height: 1.35;
-  }
-
-  .member-editor-heading .icon-button {
-    min-width: 38px;
-    width: 38px;
-    height: 38px;
-    padding: 0;
+    margin-top: 3px;
+    font-size: .66rem;
+    line-height: 1.3;
   }
 
   .member-editor-layout {
@@ -420,34 +494,23 @@
   }
 
   .member-live-preview {
-    display: grid;
-    grid-template-columns: 86px minmax(0, 1fr);
-    grid-template-rows: 64px auto;
     min-height: 0;
     border-right: 0;
     border-bottom: 1px solid var(--line);
   }
 
   .member-preview-banner {
-    grid-column: 1 / -1;
-    grid-row: 1;
-    height: 64px;
+    height: 92px;
   }
 
   .member-preview-body {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    min-height: 92px;
-    padding: 10px 14px 12px 88px;
+    padding: 0 14px 14px;
   }
 
   .member-preview-avatar-wrap {
-    position: absolute;
-    left: 14px;
-    top: -34px;
     width: 64px;
     height: 64px;
-    margin: 0;
+    margin-top: -32px;
   }
 
   .member-preview-avatar,
@@ -463,7 +526,9 @@
   .member-preview-color {
     width: 32px;
     height: 3px;
-    margin: 0 0 8px 2px;
+    margin-top: 10px;
+    margin-bottom: 8px;
+    margin-left: calc((64px - 32px) / 2);
   }
 
   .member-preview-body h4 {
@@ -473,125 +538,132 @@
   .member-preview-subname,
   .member-preview-pronouns {
     margin-top: 3px;
-    font-size: .7rem;
+    font-size: .68rem;
   }
 
   .member-preview-description {
     margin-top: 8px;
-    max-height: 2.8em;
+    max-height: 4.2em;
     overflow: hidden;
-    font-size: .7rem;
+    font-size: .68rem;
     line-height: 1.4;
   }
 
   .member-preview-hint {
-    display: none;
+    margin: 0 14px 13px;
+    padding: 9px 10px;
+  }
+
+  .member-preview-hint strong {
+    font-size: .7rem;
+  }
+
+  .member-preview-hint span {
+    font-size: .64rem;
   }
 
   .member-editor-fields {
-    padding: 14px 14px calc(14px + env(safe-area-inset-bottom));
+    padding: 13px 14px 14px;
   }
 
   .member-editor-fields .form-grid.two-col {
     grid-template-columns: 1fr;
-    gap: 10px;
+    gap: 9px;
   }
 
   .member-editor-fields label {
     gap: 5px;
-    font-size: .76rem;
+    font-size: .72rem;
   }
 
   .member-editor-fields input,
   .member-editor-fields textarea {
-    padding: 10px 11px;
-    border-radius: 10px;
+    padding: 9px 10px;
+    border-radius: 9px;
     font-size: 16px;
   }
 
   .member-editor-fields textarea {
-    min-height: 84px;
+    min-height: 78px;
   }
 
   .editor-section-heading {
-    margin-bottom: 9px;
+    margin-bottom: 8px;
   }
 
   .editor-section-heading span {
-    font-size: .82rem;
+    font-size: .78rem;
   }
 
   .editor-section-heading small,
   .image-link-fields label > small {
-    font-size: .66rem;
+    font-size: .62rem;
   }
 
   .media-heading {
-    margin-top: 16px;
-    padding-top: 14px;
+    margin-top: 14px;
+    padding-top: 12px;
   }
 
   .image-link-fields {
-    gap: 10px;
+    gap: 9px;
   }
 
   .description-field {
-    margin-top: 14px !important;
+    margin-top: 12px !important;
   }
 
   .member-editor-footer {
-    position: sticky;
-    bottom: 0;
-    z-index: 4;
-    margin: 16px -14px -14px;
-    padding: 11px 14px calc(11px + env(safe-area-inset-bottom));
-    background: color-mix(in srgb, var(--theme-surface-2) 94%, transparent);
-    border-top: 1px solid var(--line);
-    backdrop-filter: blur(16px);
+    position: static;
+    margin: 13px 0 0;
+    padding: 11px 0 0;
+    background: transparent;
+    backdrop-filter: none;
   }
 
   .member-editor-footer .primary-button,
   .member-editor-footer .secondary-button {
-    min-height: 40px;
-    padding: 9px 12px;
-    font-size: .78rem;
+    min-height: 35px;
+    padding: 7px 10px;
+    font-size: .72rem;
   }
 
   .member-review-list > div {
-    grid-template-columns: 100px minmax(0, 1fr);
-    gap: 10px;
-    padding: 9px 0;
+    grid-template-columns: 88px minmax(0, 1fr);
+    gap: 8px;
+    padding: 8px 0;
   }
 
   .member-review-list span,
   .member-review-list strong {
-    font-size: .72rem;
+    font-size: .68rem;
   }
 
   .review-callout {
-    padding: 11px 12px;
-    margin-bottom: 10px;
+    padding: 9px 10px;
+    margin-bottom: 9px;
   }
 
   .review-callout p {
-    font-size: .7rem;
+    font-size: .66rem;
   }
 
-  /* Bottom navigation stays compact and respects phone safe areas. */
+  /* Bottom navigation */
   .mobile-nav {
-    min-height: 60px;
-    padding: 5px 6px calc(5px + env(safe-area-inset-bottom));
+    min-height: 58px;
+    padding: 4px 5px calc(4px + env(safe-area-inset-bottom));
+    backdrop-filter: none;
   }
 
   .mobile-nav-item {
     min-width: 0;
-    padding: 6px 3px;
+    padding: 5px 2px;
     gap: 2px;
-    font-size: .66rem;
+    font-size: .63rem;
   }
 
   .mobile-nav-item span {
-    font-size: 1rem;
+    font-size: .95rem;
     line-height: 1;
   }
 }
@@ -608,15 +680,16 @@
 
   .topbar-actions .primary-button,
   .topbar-actions .secondary-button {
-    padding: 7px 9px;
-    font-size: .7rem;
-  }
-
-  .member-card-grid {
-    grid-template-columns: 1fr;
+    min-height: 31px;
+    padding: 5px 8px;
+    font-size: .66rem;
   }
 
   .member-chip-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .member-card-grid {
     grid-template-columns: 1fr;
   }
 
@@ -624,68 +697,20 @@
     grid-template-columns: 1fr;
   }
 
-  .stats-row div {
-    padding-inline: 5px;
-  }
-
-  .stats-row strong {
-    font-size: .9rem;
-  }
-
   .stats-row span {
-    font-size: .6rem;
+    font-size: .59rem;
+  }
+
+  .panel-actions .primary-button,
+  .panel-actions .secondary-button,
+  .panel-actions .text-button {
+    min-height: 32px;
+    padding: 5px 8px;
+    font-size: .67rem;
   }
 
   .member-review-list > div {
     grid-template-columns: 1fr;
     gap: 3px;
-  }
-
-  .toolbar-row {
-    align-items: stretch;
-  }
-
-  .member-sort-control {
-    flex: 1 1 calc(100% - 110px);
-  }
-
-  .member-sort-control select {
-    width: 100%;
-  }
-
-  #createMemberButton {
-    flex: 0 0 auto;
-  }
-}
-
-@media (max-width: 380px) {
-  :root {
-    --mobile-page-gap: 9px;
-  }
-
-  .topbar h2 {
-    font-size: 1.22rem;
-  }
-
-  .current-front-panel,
-  .section-panel {
-    padding: 14px;
-  }
-
-  .system-summary-content {
-    padding-inline: 14px;
-  }
-
-  .member-editor-heading {
-    padding-inline: 12px;
-  }
-
-  .member-editor-fields {
-    padding-inline: 12px;
-  }
-
-  .member-editor-footer {
-    margin-inline: -12px;
-    padding-inline: 12px;
   }
 }
