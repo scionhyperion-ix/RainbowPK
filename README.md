@@ -384,6 +384,71 @@ Rainbow is designed to work on desktop and mobile browsers.
 
 Your browser must support the features Rainbow uses and be able to connect to the PluralKit API.
 
+## Android App and Current Front Widget
+
+Rainbow also includes an experimental native Android version under `android-app/`.
+
+The Android build is required for the real Home Screen **Current Front** widget. Installing Rainbow from your browser as a PWA or Home Screen shortcut does not register an Android launcher widget.
+
+### Downloading the Android APK
+
+GitHub Actions builds a debug APK automatically when the Android project changes.
+
+To download the latest build:
+
+1. Open this repository on GitHub.
+2. Select the **Actions** tab.
+3. Select **Build Rainbow Android APK** from the workflow list.
+4. Open the newest run that has a green checkmark and says it completed successfully.
+5. Scroll to the **Artifacts** section at the bottom of the run page.
+6. Select **Rainbow-debug-apk**.
+7. GitHub will download a ZIP file.
+8. Extract the ZIP file.
+9. Inside it, open `app-debug.apk`.
+10. Allow installation from your browser or file manager if Android asks for permission.
+11. Install Rainbow.
+
+The debug APK is intended for testing. GitHub Actions artifacts may expire, so use the newest successful build.
+
+If the newest workflow run is still running, wait for it to finish before looking for the artifact. If the run fails, there will be no APK artifact for that run.
+
+### Enabling the Current Front Widget
+
+After installing the native Android APK:
+
+1. Open the native **Rainbow** app.
+2. Sign in with your own PluralKit token.
+3. Enable **Keep me signed in**.
+4. Open **Settings**.
+5. Find **Current Front widget**.
+6. Make sure the required checks are complete.
+7. Enable widget access.
+8. Return to your Android Home Screen.
+9. Long press an empty area of the Home Screen.
+10. Open **Widgets**.
+11. Search for or find **Rainbow**.
+12. Add the **Current Front** widget.
+
+The widget requires an internet connection to refresh data from PluralKit.
+
+The widget may display current fronter names and other fronting information outside the Rainbow app. Only enable it on a phone where you are comfortable having that information visible on the Home Screen.
+
+### PWA vs Native Android App
+
+There are two different mobile versions:
+
+```text
+Rainbow installed from the browser
+    = PWA / Home Screen web app
+    = does not provide a native Android launcher widget
+
+Rainbow installed from app-debug.apk
+    = native Android app
+    = can register the Current Front Home Screen widget
+```
+
+If Rainbow does not appear in Android's widget picker, confirm that you installed the native APK rather than only adding the website to your Home Screen.
+
 ## Can I Use More Than One System?
 
 Rainbow connects to whichever PluralKit system owns the token you entered.
