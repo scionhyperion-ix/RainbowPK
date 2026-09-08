@@ -1,0 +1,65 @@
+/* Front history refinements: calendar default, paged log, search-only member view. */
+
+.history-pagination {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 3px;
+}
+
+.history-pagination .secondary-button {
+  min-height: 32px;
+  padding: 6px 10px;
+  font-size: .68rem;
+}
+
+.history-pagination .secondary-button:disabled {
+  opacity: .45;
+  cursor: default;
+}
+
+.history-page-status {
+  min-width: 92px;
+  color: var(--muted);
+  text-align: center;
+  font-size: .68rem;
+  font-weight: 700;
+}
+
+.history-tools [hidden],
+.history-pagination[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  .history-pagination {
+    gap: 7px;
+  }
+
+  .history-pagination .secondary-button {
+    min-height: 34px;
+    padding: 7px 9px;
+    font-size: .64rem;
+  }
+
+  .history-page-status {
+    min-width: 80px;
+    font-size: .62rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .history-pagination {
+    grid-column: 1;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    width: 100%;
+  }
+
+  .history-pagination .secondary-button {
+    width: 100%;
+    min-width: 0;
+  }
+}
