@@ -1,5 +1,49 @@
 'use strict';
 
+(function enforceLoginPersistencePolicy() {
+  const sessionKey = 'rainbow_pk_token_session';
+  const persistentKey = 'rainbow_pk_token';
+
+  const legacySessionToken = sessionStorage.getItem(sessionKey);
+  if (legacySessionToken) {
+    sessionStorage.removeItem(sessionKey);
+
+    if (!localStorage.getItem(persistentKey)) {
+      window.location.reload();
+      return;
+    }
+  }
+
+  storeToken = function storeTokenByPreference(token, persistent) {
+    localStorage.removeItem(persistentKey);
+    sessionStorage.removeItem(sessionKey);
+
+    if (persistent) {
+      localStorage.setItem(persistentKey, token);
+      state.tokenStorage = 'persistent';
+    } else {
+      state.tokenStorage = 'memory';
+    }
+  };
+
+  const originalRenderSettings = renderSettings;
+  renderSettings = function renderSettingsWithStoragePolicy() {
+    originalRenderSettings();
+    const storage = document.querySelector('#settingsTokenStorage');
+    if (storage) {
+      storage.textContent = state.tokenStorage === 'persistent'
+        ? 'This browser'
+        : 'Until page refresh';
+    }
+  };
+
+  const remember = document.querySelector('#rememberToken');
+  const rememberHelp = remember?.closest('label')?.querySelector('small');
+  if (rememberHelp) {
+    rememberHelp.textContent = 'Stores the token only in this browser until you sign out. Leave this off to sign out when the page refreshes or closes.';
+  }
+})();
+
 (function installMemberSorting() {
   const SORT_KEY = 'rainbow_member_sort';
   const validSorts = new Set(['az', 'za', 'newest', 'oldest']);
