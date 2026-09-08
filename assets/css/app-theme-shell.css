@@ -1,0 +1,44 @@
+/* Paint the active appearance theme on the application shell itself.
+   This keeps every route on one identical canvas instead of relying on the
+   body background to show through route-specific layout layers. */
+
+#appView.app-shell {
+  background:
+    radial-gradient(circle at 12% 8%, var(--theme-glow-1), transparent 28rem),
+    radial-gradient(circle at 88% 12%, var(--theme-glow-2), transparent 30rem),
+    var(--bg) !important;
+  background-color: var(--bg) !important;
+  background-attachment: fixed !important;
+}
+
+/* Rainbow gets the fuller prismatic canvas used on Home, but the surface is
+   now owned by appView so Members, Groups, History, and Settings cannot lose it. */
+:root[data-theme="rainbow"] #appView.app-shell {
+  background:
+    radial-gradient(circle at 8% 9%, rgba(234, 92, 157, .25), transparent 25rem),
+    radial-gradient(circle at 42% 2%, rgba(178, 113, 226, .16), transparent 24rem),
+    radial-gradient(circle at 91% 13%, rgba(88, 153, 232, .23), transparent 27rem),
+    radial-gradient(circle at 82% 89%, rgba(69, 181, 164, .15), transparent 26rem),
+    radial-gradient(circle at 16% 92%, rgba(221, 167, 76, .11), transparent 24rem),
+    var(--bg) !important;
+}
+
+#appView > .sidebar,
+#appView > .main-column,
+#appView .topbar {
+  background-color: transparent !important;
+}
+
+/* Members must never paint a route-wide canvas of its own. */
+#appView #membersRoute {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 760px) {
+  #appView.app-shell {
+    background-attachment: scroll !important;
+  }
+}
