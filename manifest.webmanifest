@@ -11,7 +11,7 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "rainbowpk.png",
+      "src": "assets/images/rainbowpk.png",
       "sizes": "any",
       "type": "image/png",
       "purpose": "any"
