@@ -8,7 +8,7 @@ on:
       - '.github/workflows/android-debug-apk.yml'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build-debug-apk:
@@ -32,10 +32,29 @@ jobs:
       - name: Build debug APK
         run: gradle -p android-app :app:assembleDebug --stacktrace
 
-      - name: Upload debug APK
+      - name: Prepare downloadable APK
+        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk Rainbow-debug.apk
+
+      - name: Upload debug APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: Rainbow-debug-apk
-          path: android-app/app/build/outputs/apk/debug/app-debug.apk
+          path: Rainbow-debug.apk
           if-no-files-found: error
           retention-days: 14
+
+      - name: Create rolling Android release if needed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh release view android-latest >/dev/null 2>&1; then
+            gh release create android-latest \
+              --target "$GITHUB_SHA" \
+              --title "Rainbow Android, latest debug build" \
+              --notes "Experimental Android build with the native Current Front widget. This is a debug APK for testing."
+          fi
+
+      - name: Publish APK to rolling release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload android-latest Rainbow-debug.apk --clobber
