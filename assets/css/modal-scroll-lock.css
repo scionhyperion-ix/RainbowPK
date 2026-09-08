@@ -1,0 +1,23 @@
+/* Keep the page behind open dialogs completely stationary. */
+html.modal-scroll-locked,
+body.modal-scroll-locked {
+  overflow: hidden !important;
+  overscroll-behavior: none !important;
+}
+
+dialog[open] {
+  overscroll-behavior: contain;
+}
+
+#memberFieldsStage,
+#memberReviewStage {
+  overflow-x: hidden !important;
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: contain;
+}
+
+.member-editor-dialog[open] .member-editor-card,
+.member-editor-dialog[open] .member-editor-layout,
+.member-editor-dialog[open] .member-editor-fields {
+  overscroll-behavior: contain;
+}
