@@ -108,6 +108,15 @@
     syncThemeButtons(document.documentElement.dataset.theme || 'twilight');
   }
 
+  function installMobileStyles() {
+    if (document.querySelector('link[href="mobile.css"]')) return;
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'mobile.css';
+    link.media = '(max-width: 760px)';
+    document.head.append(link);
+  }
+
   function installSiteChrome() {
     const iconHref = 'rainbowpk.png';
 
@@ -124,6 +133,7 @@
   }
 
   applyTheme(savedTheme(), { save: false });
+  installMobileStyles();
   installThemeSettings();
   installSiteChrome();
 })();
