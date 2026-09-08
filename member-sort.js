@@ -132,7 +132,14 @@
       h3.textContent = memberLabel(member);
 
       const p = document.createElement('p');
-      p.textContent = member.display_name || member.pronouns || member.id;
+      const secondary = [];
+      if (member.display_name && member.display_name !== member.name) {
+        secondary.push(member.display_name);
+      }
+      if (member.pronouns) {
+        secondary.push(member.pronouns);
+      }
+      p.textContent = secondary.length ? secondary.join(' • ') : member.id;
 
       nameWrap.append(h3, p);
       top.append(nameWrap);
