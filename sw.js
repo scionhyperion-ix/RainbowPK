@@ -1,12 +1,13 @@
 'use strict';
 
-const CACHE_NAME = 'rainbow-shell-v22';
+const CACHE_NAME = 'rainbow-shell-v23';
 const APP_SHELL = [
   './',
   './index.html',
   './assets/css/styles.css',
   './assets/css/enhancements.css',
   './assets/css/themes.css',
+  './assets/css/theme-extras.css?v=1',
   './assets/css/site-features.css?v=1',
   './assets/css/history-behavior.css?v=1',
   './assets/css/member-editor-v2.css?v=1',
