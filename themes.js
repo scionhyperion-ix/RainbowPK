@@ -109,7 +109,7 @@
   }
 
   function installSiteChrome() {
-    const iconHref = 'site-icon.png';
+    const iconHref = 'rainbowpk.png';
 
     ['icon', 'shortcut icon', 'apple-touch-icon'].forEach(rel => {
       let link = document.head.querySelector(`link[rel="${rel}"]`);
