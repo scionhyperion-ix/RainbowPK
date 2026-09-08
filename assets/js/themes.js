@@ -4,6 +4,7 @@
   const THEME_KEY = 'rainbow_appearance_theme';
   const themes = [
     { id: 'twilight', name: 'Twilight', description: 'Violet and lavender' },
+    { id: 'rainbow', name: 'Rainbow', description: 'Muted prismatic tones' },
     { id: 'ocean', name: 'Ocean', description: 'Blue and cyan' },
     { id: 'rose', name: 'Rose', description: 'Berry and pink' },
     { id: 'forest', name: 'Forest', description: 'Emerald and mint' },
