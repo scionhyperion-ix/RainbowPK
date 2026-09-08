@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Rainbow</string>
+    <string name="widget_description">Shows the current PluralKit fronters.</string>
+    <string name="widget_title">CURRENT FRONT</string>
+    <string name="widget_refresh">Refresh</string>
+</resources>
