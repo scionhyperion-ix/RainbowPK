@@ -4,11 +4,15 @@
   const THEME_KEY = 'rainbow_appearance_theme';
   const themes = [
     { id: 'twilight', name: 'Twilight', description: 'Violet and lavender' },
-    { id: 'rainbow', name: 'Rainbow', description: 'Muted prismatic tones' },
+    { id: 'rainbow', name: 'Rainbow', description: 'Prismatic dark color' },
     { id: 'ocean', name: 'Ocean', description: 'Blue and cyan' },
     { id: 'rose', name: 'Rose', description: 'Berry and pink' },
     { id: 'forest', name: 'Forest', description: 'Emerald and mint' },
     { id: 'amber', name: 'Amber', description: 'Gold and warm orange' },
+    { id: 'cherry', name: 'Cherry', description: 'Ruby and soft red' },
+    { id: 'sunset', name: 'Sunset', description: 'Coral and peach' },
+    { id: 'lagoon', name: 'Lagoon', description: 'Teal and aqua' },
+    { id: 'iris', name: 'Iris', description: 'Indigo and periwinkle' },
   ];
 
   const validThemes = new Set(themes.map(theme => theme.id));
@@ -150,6 +154,7 @@
     });
   }
 
+  ensureStylesheet('assets/css/theme-extras.css?v=1');
   applyTheme(savedTheme(), { save: false });
   installMobileStyles();
   installThemeSettings();
