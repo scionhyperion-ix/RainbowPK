@@ -1,6 +1,13 @@
 'use strict';
 
 (function installTopFronter() {
+  if (!document.querySelector('link[href="top-fronter.css"]')) {
+    const styleLink = document.createElement('link');
+    styleLink.rel = 'stylesheet';
+    styleLink.href = 'top-fronter.css';
+    document.head.append(styleLink);
+  }
+
   function topFronterData() {
     const counts = new Map();
 
