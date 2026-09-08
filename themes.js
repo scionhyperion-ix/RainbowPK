@@ -104,8 +104,7 @@
 
     panel.append(eyebrow, title, intro, group);
 
-    const securityPanel = settingsGrid.children[1] || null;
-    settingsGrid.insertBefore(panel, securityPanel);
+    settingsGrid.append(panel);
     syncThemeButtons(document.documentElement.dataset.theme || 'twilight');
   }
 
