@@ -162,28 +162,38 @@
     -webkit-overflow-scrolling: touch;
   }
 
+  /* Compact pill tabs instead of three full-width bars. */
   .mobile-member-tabs {
     position: sticky;
     top: 0;
     z-index: 2;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
     margin-bottom: 8px;
-    padding-bottom: 2px;
+    padding: 0 0 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
     background: var(--theme-surface-2);
   }
 
+  .mobile-member-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
   .mobile-member-tab {
-    min-height: 34px;
-    padding: 6px 7px;
+    flex: 0 0 auto;
+    min-width: 0;
+    min-height: 30px;
+    padding: 5px 11px;
     border: 1px solid var(--line);
-    border-radius: 9px;
+    border-radius: 999px;
     background: color-mix(in srgb, var(--theme-surface-1) 82%, transparent);
     color: var(--muted);
     font: inherit;
-    font-size: .66rem;
+    font-size: .64rem;
     font-weight: 750;
+    white-space: nowrap;
   }
 
   .mobile-member-tab.active {
@@ -324,11 +334,19 @@
     overflow-wrap: anywhere;
   }
 
+  /* Respect the hidden state. This prevents edit and review actions showing together. */
+  #memberEditFooter[hidden],
+  #memberReviewFooter[hidden] {
+    display: none !important;
+  }
+
+  /* Compact actions rather than full-width button bars. */
   .member-editor-footer {
     position: static !important;
-    display: grid !important;
-    grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
-    gap: 7px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px !important;
     margin-top: 8px !important;
     padding-top: 8px !important;
     border-top: 1px solid var(--line);
@@ -338,11 +356,17 @@
 
   .member-editor-footer .primary-button,
   .member-editor-footer .secondary-button {
-    width: 100%;
-    min-height: 37px !important;
-    padding: 7px 8px !important;
+    width: auto !important;
+    min-width: 0 !important;
+    min-height: 34px !important;
+    padding: 7px 11px !important;
     border-radius: 9px;
-    font-size: .68rem !important;
+    font-size: .66rem !important;
+    white-space: nowrap;
+  }
+
+  .member-editor-footer .primary-button {
+    min-width: 112px !important;
   }
 }
 
@@ -379,5 +403,15 @@
 
   .member-editor-fields .form-grid.two-col label {
     grid-column: 1 !important;
+  }
+
+  .member-editor-footer .primary-button,
+  .member-editor-footer .secondary-button {
+    padding-inline: 9px !important;
+    font-size: .63rem !important;
+  }
+
+  .member-editor-footer .primary-button {
+    min-width: 102px !important;
   }
 }
