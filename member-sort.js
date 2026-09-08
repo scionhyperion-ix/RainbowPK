@@ -137,17 +137,13 @@
       nameWrap.append(h3, p);
       top.append(nameWrap);
 
-      const desc = document.createElement('p');
-      desc.className = 'member-card-desc';
-      desc.textContent = member.description || 'No description';
-
       const bar = document.createElement('div');
       bar.className = 'member-color-bar';
       bar.style.background = /^[0-9a-f]{6}$/i.test(member.color || '')
         ? `#${member.color}`
         : 'var(--accent)';
 
-      card.append(top, desc, bar);
+      card.append(top, bar);
       card.addEventListener('click', () => openMemberDialog(member));
       els.memberGrid.append(card);
     });
