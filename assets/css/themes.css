@@ -21,6 +21,27 @@
   --theme-banner-2: rgba(187, 164, 255, .20);
 }
 
+:root[data-theme="rainbow"] {
+  --bg: #100d15;
+  --panel: rgba(36, 25, 38, .93);
+  --text: #f8f3f7;
+  --muted: #b7a9b6;
+  --accent: #c28fae;
+  --accent-2: #b9afd2;
+  --accent-soft: rgba(194, 143, 174, .13);
+  --theme-surface-1: #2b202d;
+  --theme-surface-2: #201820;
+  --theme-surface-hover: #352737;
+  --theme-input: #181218;
+  --theme-glow-1: rgba(175, 103, 139, .16);
+  --theme-glow-2: rgba(103, 132, 178, .12);
+  --theme-button-1: #c891ad;
+  --theme-button-2: #929fc1;
+  --theme-button-text: #160f17;
+  --theme-banner-1: rgba(170, 101, 142, .32);
+  --theme-banner-2: rgba(101, 132, 171, .18);
+}
+
 :root[data-theme="ocean"] {
   --bg: #071119;
   --panel: rgba(16, 35, 48, .92);
@@ -119,6 +140,15 @@ body {
   transition: background-color .22s ease, color .22s ease;
 }
 
+:root[data-theme="rainbow"] body {
+  background:
+    radial-gradient(circle at 9% 9%, rgba(184, 104, 139, .15), transparent 25rem),
+    radial-gradient(circle at 88% 10%, rgba(105, 130, 176, .13), transparent 27rem),
+    radial-gradient(circle at 78% 88%, rgba(92, 148, 137, .08), transparent 26rem),
+    radial-gradient(circle at 18% 92%, rgba(173, 143, 88, .07), transparent 24rem),
+    var(--bg);
+}
+
 .login-card,
 .panel,
 .member-card,
@@ -163,6 +193,10 @@ textarea:focus {
   color: var(--theme-button-text);
 }
 
+:root[data-theme="rainbow"] .primary-button {
+  background: linear-gradient(118deg, #c58d9f 0%, #b090b4 38%, #8fa3bb 72%, #88aaa2 100%);
+}
+
 .text-button {
   color: var(--accent-2);
 }
@@ -184,11 +218,23 @@ textarea:focus {
   );
 }
 
+:root[data-theme="rainbow"] .fallback-avatar {
+  background: linear-gradient(135deg, rgba(190, 132, 157, .34), rgba(125, 148, 181, .24), rgba(116, 160, 146, .18));
+}
+
 .system-banner,
 .member-preview-banner-fallback {
   background:
     radial-gradient(circle at 20% 28%, var(--theme-banner-2), transparent 42%),
     linear-gradient(135deg, var(--theme-banner-1), color-mix(in srgb, var(--theme-surface-2) 72%, transparent));
+}
+
+:root[data-theme="rainbow"] .system-banner,
+:root[data-theme="rainbow"] .member-preview-banner-fallback {
+  background:
+    radial-gradient(circle at 15% 28%, rgba(190, 116, 150, .24), transparent 38%),
+    radial-gradient(circle at 82% 23%, rgba(100, 132, 177, .20), transparent 42%),
+    linear-gradient(118deg, rgba(121, 81, 113, .40), rgba(74, 90, 118, .32), rgba(65, 102, 94, .24));
 }
 
 /* Let only the system avatar overlap the banner. Keep the system text below it. */
@@ -311,7 +357,7 @@ textarea:focus {
 
 .theme-options {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   gap: 10px;
 }
 
@@ -353,6 +399,7 @@ textarea:focus {
 }
 
 .theme-swatch-twilight { background: linear-gradient(135deg, #ad9cff, #7768db); }
+.theme-swatch-rainbow { background: linear-gradient(120deg, #c58d9f, #b090b4 35%, #8fa3bb 68%, #88aaa2); }
 .theme-swatch-ocean { background: linear-gradient(135deg, #75caf8, #348fc9); }
 .theme-swatch-rose { background: linear-gradient(135deg, #f2a0c2, #c75d8e); }
 .theme-swatch-forest { background: linear-gradient(135deg, #83deb4, #429b73); }
@@ -397,12 +444,6 @@ textarea:focus {
   color: var(--theme-button-text);
   background: var(--accent);
   border-color: transparent;
-}
-
-@media (max-width: 1050px) {
-  .theme-options {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
 }
 
 @media (max-width: 720px) {
