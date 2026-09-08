@@ -37,7 +37,7 @@
   ensureStylesheet('assets/css/home-system-controls.css?v=2');
   ensureStylesheet('assets/css/multi-cofronter.css?v=1');
   ensureStylesheet('assets/css/guide-popovers.css?v=3');
-  ensureStylesheet('assets/css/member-view-menu.css?v=1');
+  ensureStylesheet('assets/css/member-view-menu.css?v=2');
   ensureStylesheet('assets/css/modal-scroll-lock.css?v=1');
   loadScript('assets/js/history-behavior.js?v=1');
   loadScript('assets/js/member-editor-v2.js?v=1');
