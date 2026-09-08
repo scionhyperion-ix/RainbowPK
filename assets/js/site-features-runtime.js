@@ -46,7 +46,7 @@
   loadScript('assets/js/groups-route-runtime.js?v=1');
   loadScript('assets/js/groups-members-access.js?v=2');
   loadScript('assets/js/home-system-controls.js?v=1');
-  loadScript('assets/js/front-scroll-stability.js?v=1');
+  loadScript('assets/js/front-scroll-stability.js?v=2');
   loadScript('assets/js/multi-cofronter.js?v=1');
   loadScript('assets/js/guide-popovers.js?v=3');
   loadScript('assets/js/member-view-menu.js?v=1');
