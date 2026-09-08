@@ -47,9 +47,24 @@
 }
 
 #frontDuration {
-  min-width: 88px;
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  min-width: 88px;
+  height: 28px;
+
+  padding: 0 10px;
+
+  text-align: center;
+
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace;
+
   font-variant-numeric: tabular-nums;
 }
 
