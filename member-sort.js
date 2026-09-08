@@ -1,5 +1,55 @@
 'use strict';
 
+(function installPersistentRestoreLoadingScreen() {
+  const persistentKey = 'rainbow_pk_token';
+  if (!localStorage.getItem(persistentKey)) return;
+
+  if (!document.querySelector('link[href="restore-loading.css"]')) {
+    const styleLink = document.createElement('link');
+    styleLink.rel = 'stylesheet';
+    styleLink.href = 'restore-loading.css';
+    document.head.append(styleLink);
+  }
+
+  const screen = document.createElement('div');
+  screen.className = 'restore-loading-screen';
+  screen.setAttribute('role', 'status');
+  screen.setAttribute('aria-live', 'polite');
+  screen.innerHTML = `
+    <div class="restore-loading-card">
+      <img class="restore-loading-logo" src="rainbowpk.png" alt="">
+      <div class="restore-loading-copy">
+        <strong>Loading Rainbow</strong>
+        <span>Reconnecting to PluralKit...</span>
+      </div>
+      <div class="restore-loading-track" aria-hidden="true"><span></span></div>
+    </div>`;
+  document.body.append(screen);
+
+  function dismiss() {
+    if (!screen.isConnected || screen.classList.contains('is-leaving')) return;
+    screen.classList.add('is-leaving');
+    window.setTimeout(() => screen.remove(), 220);
+  }
+
+  const checkRestore = window.setInterval(() => {
+    const appVisible = !document.querySelector('#appView')?.hidden;
+    const systemLoaded = document.querySelector('#systemShortId')?.textContent?.trim() !== '...';
+    const savedTokenGone = !localStorage.getItem(persistentKey);
+    const loginVisible = !document.querySelector('#loginView')?.hidden;
+
+    if ((appVisible && systemLoaded) || (savedTokenGone && loginVisible)) {
+      window.clearInterval(checkRestore);
+      dismiss();
+    }
+  }, 80);
+
+  window.setTimeout(() => {
+    window.clearInterval(checkRestore);
+    dismiss();
+  }, 15000);
+})();
+
 (function enforceLoginPersistencePolicy() {
   const sessionKey = 'rainbow_pk_token_session';
   const persistentKey = 'rainbow_pk_token';
