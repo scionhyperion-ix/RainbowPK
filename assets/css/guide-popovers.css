@@ -1,7 +1,7 @@
 /* Compact helper/info popovers. Important warnings remain visible elsewhere. */
 .guide-popover {
   position: relative;
-  z-index: 12;
+  z-index: 42;
   display: inline-flex;
   align-items: center;
   width: max-content;
@@ -54,17 +54,26 @@
   color: var(--text);
 }
 
+/*
+ * Popovers live against the viewport rather than the editor's scroll area.
+ * This is deliberate: absolutely-positioned cards inside an overflow:auto
+ * editor increase scrollWidth and create the horizontal scrollbar seen on
+ * narrow layouts.
+ */
 .guide-popover-content,
 .guide-popover .front-timing-note,
 .guide-popover .member-preview-hint {
-  position: absolute;
-  inset-inline-start: 0;
-  bottom: calc(100% + 9px);
-  z-index: 40;
-  width: min(360px, calc(100vw - 36px));
-  max-width: min(360px, calc(100vw - 36px));
+  position: fixed !important;
+  left: var(--guide-left, 12px) !important;
+  top: var(--guide-top, 12px) !important;
+  right: auto !important;
+  bottom: auto !important;
+  z-index: 2147483000;
+  width: min(360px, calc(100vw - 24px));
+  max-width: calc(100vw - 24px);
   margin: 0 !important;
   padding: 11px 12px !important;
+  box-sizing: border-box;
   border: 1px solid color-mix(in srgb, var(--accent) 36%, var(--line)) !important;
   border-radius: 12px !important;
   background: color-mix(in srgb, var(--theme-surface-2, #171928) 96%, black) !important;
@@ -73,44 +82,33 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translateY(5px) scale(.985);
-  transform-origin: left bottom;
+  transform: translateY(var(--guide-enter-y, 4px)) scale(.985);
+  transform-origin: var(--guide-origin, center top);
   transition: opacity .14s ease, transform .14s ease, visibility .14s;
   font-size: .74rem !important;
   line-height: 1.48 !important;
   text-align: left;
+  overflow-wrap: anywhere;
 }
 
 .guide-popover-content::after {
   content: '';
   position: absolute;
-  inset-inline-start: 8px;
-  top: 100%;
+  left: var(--guide-arrow-left, 14px);
   width: 9px;
   height: 9px;
+  background: color-mix(in srgb, var(--theme-surface-2, #171928) 96%, black);
+}
+
+.guide-popover[data-placement="above"] .guide-popover-content::after {
+  top: 100%;
   border-right: 1px solid color-mix(in srgb, var(--accent) 36%, var(--line));
   border-bottom: 1px solid color-mix(in srgb, var(--accent) 36%, var(--line));
-  background: color-mix(in srgb, var(--theme-surface-2, #171928) 96%, black);
   transform: translateY(-5px) rotate(45deg);
 }
 
-/* The front timing helper sits beside the top timer, so its card opens downward. */
-.guide-popover-front-timing .guide-popover-content {
-  inset-inline-start: auto;
-  inset-inline-end: 0;
-  top: calc(100% + 9px);
-  bottom: auto;
-  transform: translateY(-5px) scale(.985);
-  transform-origin: right top;
-}
-
-.guide-popover-front-timing .guide-popover-content::after {
-  inset-inline-start: auto;
-  inset-inline-end: 8px;
-  top: auto;
+.guide-popover[data-placement="below"] .guide-popover-content::after {
   bottom: 100%;
-  border-right: 0;
-  border-bottom: 0;
   border-left: 1px solid color-mix(in srgb, var(--accent) 36%, var(--line));
   border-top: 1px solid color-mix(in srgb, var(--accent) 36%, var(--line));
   transform: translateY(5px) rotate(45deg);
@@ -137,15 +135,6 @@
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-  }
-
-  .guide-popover:not(.guide-popover-front-timing):hover .guide-popover-content,
-  .guide-popover:not(.guide-popover-front-timing):focus-within .guide-popover-content {
-    transform: translateY(0) scale(1);
-  }
-
-  .guide-popover-front-timing:hover .guide-popover-content,
-  .guide-popover-front-timing:focus-within .guide-popover-content {
     transform: translateY(0) scale(1);
   }
 }
@@ -168,10 +157,6 @@
     gap: 6px;
   }
 
-  .guide-popover-front-timing {
-    margin: 0;
-  }
-
   .guide-popover-member-images {
     margin: 4px 10px 12px;
   }
@@ -186,10 +171,19 @@
   .guide-popover-content,
   .guide-popover .front-timing-note,
   .guide-popover .member-preview-hint {
-    width: min(310px, calc(100vw - 28px));
-    max-width: min(310px, calc(100vw - 28px));
+    width: min(310px, calc(100vw - 20px));
+    max-width: calc(100vw - 20px);
     padding: 10px 11px !important;
     font-size: .7rem !important;
+  }
+
+  /* Vertical scrolling only inside the member editor. */
+  #memberFieldsStage,
+  #memberReviewStage,
+  .member-editor-fields,
+  .member-editor-card {
+    max-width: 100%;
+    overflow-x: hidden !important;
   }
 }
 
