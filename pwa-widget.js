@@ -38,6 +38,10 @@
     return navigator.onLine && Boolean(state?.system) && Boolean(state?.token);
   }
 
+  function isRequested() {
+    return localStorage.getItem(WIDGET_PREF_KEY) === 'true';
+  }
+
   function requirementRow(id, title, detail) {
     const row = document.createElement('div');
     row.className = 'widget-requirement';
@@ -82,7 +86,7 @@
 
     const intro = document.createElement('p');
     intro.className = 'widget-settings-copy';
-    intro.textContent = 'Prepare Rainbow to expose only your current fronters to a future phone Home Screen widget.';
+    intro.textContent = 'Prepare Rainbow for the native Android Current Front widget. The installed web app cannot add an Android launcher widget by itself.';
 
     const requirements = document.createElement('div');
     requirements.className = 'widget-requirements';
@@ -98,7 +102,7 @@
     const toggleCopy = document.createElement('div');
     toggleCopy.className = 'widget-toggle-copy';
     const toggleTitle = document.createElement('strong');
-    toggleTitle.textContent = 'Allow Current Front widget';
+    toggleTitle.textContent = 'Prepare widget access';
     const toggleStatus = document.createElement('small');
     toggleStatus.id = 'currentFrontWidgetStatus';
     toggleStatus.textContent = 'Complete the requirements above first.';
@@ -106,7 +110,7 @@
 
     const toggleLabel = document.createElement('label');
     toggleLabel.className = 'widget-switch';
-    toggleLabel.setAttribute('aria-label', 'Allow Current Front widget');
+    toggleLabel.setAttribute('aria-label', 'Prepare Current Front widget access');
     const checkbox = document.createElement('input');
     checkbox.id = 'currentFrontWidgetToggle';
     checkbox.type = 'checkbox';
@@ -118,7 +122,7 @@
 
     const privacy = document.createElement('p');
     privacy.className = 'widget-privacy-note';
-    privacy.textContent = 'Privacy note: a Home Screen widget can make current fronter names and images visible outside Rainbow. Only enable this on a phone you trust.';
+    privacy.textContent = 'Privacy note: the future Android Home Screen widget can make current fronter names and images visible outside Rainbow. This switch only saves permission for that native widget. It does not create a launcher widget by itself.';
 
     panel.append(eyebrow, title, intro, requirements, toggleRow, privacy);
 
@@ -130,9 +134,9 @@
 
     checkbox.addEventListener('change', () => {
       const eligible = hasPersistentLogin() && isStandalone() && isConnected();
+
       if (!eligible) {
-        checkbox.checked = false;
-        localStorage.removeItem(WIDGET_PREF_KEY);
+        checkbox.checked = isRequested();
         renderState();
         return;
       }
@@ -140,12 +144,12 @@
       if (checkbox.checked) {
         localStorage.setItem(WIDGET_PREF_KEY, 'true');
         if (typeof showToast === 'function') {
-          showToast('Widget access enabled', 'Rainbow is ready for the native Current Front widget bridge.');
+          showToast('Widget access prepared', 'Your preference will stay enabled after Rainbow closes.');
         }
       } else {
         localStorage.removeItem(WIDGET_PREF_KEY);
         if (typeof showToast === 'function') {
-          showToast('Widget access disabled', 'Current Front widget access is turned off.');
+          showToast('Widget access disabled', 'Current Front widget permission is turned off.');
         }
       }
       renderState();
@@ -171,6 +175,13 @@
     const connected = isConnected();
     const eligible = persistent && installed && connected;
 
+    // If the remembered token is gone, widget permission must be revoked.
+    if (!persistent && isRequested()) {
+      localStorage.removeItem(WIDGET_PREF_KEY);
+    }
+
+    const requested = isRequested();
+
     setRequirement('persistent', persistent);
     setRequirement('installed', installed);
     setRequirement('connected', connected);
@@ -179,23 +190,34 @@
     const status = document.querySelector('#currentFrontWidgetStatus');
     if (!checkbox || !status) return;
 
+    checkbox.checked = requested;
     checkbox.disabled = !eligible;
 
-    if (!eligible) {
-      checkbox.checked = false;
-      localStorage.removeItem(WIDGET_PREF_KEY);
-      const missing = [];
-      if (!persistent) missing.push('remember your login');
-      if (!installed) missing.push('open the installed Rainbow app');
-      if (!connected) missing.push('connect to PluralKit');
-      status.textContent = `Required: ${missing.join(', ')}.`;
+    if (eligible) {
+      status.textContent = requested
+        ? 'Prepared. This setting will stay enabled after the app closes.'
+        : 'All requirements are complete. You can prepare widget access.';
       return;
     }
 
-    checkbox.checked = localStorage.getItem(WIDGET_PREF_KEY) === 'true';
-    status.textContent = checkbox.checked
-      ? 'Enabled. Ready for the native widget bridge.'
-      : 'All requirements are complete. You can enable widget access.';
+    if (requested) {
+      if (!installed) {
+        status.textContent = 'Prepared. Open Rainbow from the installed app to use this setting.';
+      } else if (!connected) {
+        status.textContent = navigator.onLine
+          ? 'Prepared. Waiting for Rainbow to finish reconnecting to PluralKit.'
+          : 'Prepared. Widget data will be unavailable until you are back online.';
+      } else {
+        status.textContent = 'Prepared. Waiting for the required app state.';
+      }
+      return;
+    }
+
+    const missing = [];
+    if (!persistent) missing.push('remember your login');
+    if (!installed) missing.push('open the installed Rainbow app');
+    if (!connected) missing.push('connect to PluralKit');
+    status.textContent = `Required: ${missing.join(', ')}.`;
   }
 
   const oldRenderAll = window.renderAll;
