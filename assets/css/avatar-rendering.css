@@ -1,0 +1,28 @@
+/* Shared avatar rendering fixes. Keep fallback initials centered everywhere. */
+
+.fallback-avatar {
+  display: grid !important;
+  place-items: center !important;
+  box-sizing: border-box;
+  padding: 0 !important;
+  text-align: center !important;
+  line-height: 1 !important;
+  overflow: hidden;
+}
+
+img[class*="avatar"],
+img.group-member-mini,
+img.group-card-icon {
+  object-position: 50% 50%;
+  image-rendering: auto;
+}
+
+.member-chip-avatar.fallback-avatar,
+.timeline-avatar.fallback-avatar,
+.picker-avatar.fallback-avatar,
+.member-card-avatar.fallback-avatar,
+.group-member-mini.fallback-avatar,
+.groups-current-member-avatar.fallback-avatar {
+  font-weight: 800;
+  letter-spacing: 0;
+}
