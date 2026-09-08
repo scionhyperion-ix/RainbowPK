@@ -141,7 +141,10 @@ body {
   backdrop-filter: none;
 }
 
+/* The page title scrolls with the page instead of covering content. */
 .topbar {
+  position: static;
+  top: auto;
   backdrop-filter: none;
 }
 
