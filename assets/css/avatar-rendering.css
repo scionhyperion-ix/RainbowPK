@@ -10,6 +10,12 @@
   overflow: hidden;
 }
 
+/* Never let the centering rule override the native hidden attribute. */
+.fallback-avatar[hidden],
+.system-editor-preview-avatar[hidden] {
+  display: none !important;
+}
+
 img[class*="avatar"],
 img.group-member-mini,
 img.group-card-icon {
