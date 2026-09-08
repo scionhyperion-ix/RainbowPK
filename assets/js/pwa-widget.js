@@ -17,7 +17,7 @@
   }
 
   ensureHeadLink('manifest', 'manifest.webmanifest');
-  ensureHeadLink('apple-touch-icon', 'rainbowpk.png');
+  ensureHeadLink('apple-touch-icon', 'assets/images/rainbowpk.png');
 
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
