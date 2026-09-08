@@ -31,6 +31,8 @@
 
   ensureStylesheet('assets/css/history-behavior.css?v=1');
   ensureStylesheet('assets/css/member-editor-v2.css?v=1');
+  ensureStylesheet('assets/css/groups-route.css?v=1');
   loadScript('assets/js/history-behavior.js?v=1');
   loadScript('assets/js/member-editor-v2.js?v=1');
+  loadScript('assets/js/groups-route.js?v=1');
 })();
