@@ -29,7 +29,7 @@
     document.body.append(script);
   }
 
-  ensureStylesheet('assets/css/app-theme-shell.css?v=1');
+  ensureStylesheet('assets/css/app-theme-shell.css?v=2');
   ensureStylesheet('assets/css/history-behavior.css?v=1');
   ensureStylesheet('assets/css/member-editor-v2.css?v=1');
   ensureStylesheet('assets/css/groups-route.css?v=2');
