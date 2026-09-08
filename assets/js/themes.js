@@ -12,7 +12,7 @@
     { id: 'cherry', name: 'Cherry', description: 'Ruby and soft red' },
     { id: 'sunset', name: 'Sunset', description: 'Coral and peach' },
     { id: 'lagoon', name: 'Lagoon', description: 'Teal and aqua' },
-    { id: 'iris', name: 'Iris', description: 'Indigo and periwinkle' },
+    { id: 'cocoa', name: 'Cocoa', description: 'Chocolate and cream' },
   ];
 
   const validThemes = new Set(themes.map(theme => theme.id));
@@ -20,6 +20,10 @@
 
   function savedTheme() {
     const value = localStorage.getItem(THEME_KEY);
+    if (value === 'iris') {
+      localStorage.setItem(THEME_KEY, 'cocoa');
+      return 'cocoa';
+    }
     return validThemes.has(value) ? value : 'twilight';
   }
 
@@ -155,6 +159,7 @@
   }
 
   ensureStylesheet('assets/css/theme-extras.css?v=1');
+  ensureStylesheet('assets/css/theme-cocoa.css?v=1');
   applyTheme(savedTheme(), { save: false });
   installMobileStyles();
   installThemeSettings();
