@@ -192,10 +192,20 @@
   }
 }
 
-/* 341px and up can still keep Color and Birthday side by side. */
+/* Normal phones pair Color and Birthday on one row. */
 @media (min-width: 341px) and (max-width: 760px) {
   html:not(.native-app) .member-editor-fields .form-grid.two-col {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  html:not(.native-app) #mobileMemberPanel-profile .form-grid.two-col > label:nth-child(4) {
+    grid-column: 1 !important;
+    grid-row: 4 !important;
+  }
+
+  html:not(.native-app) #mobileMemberPanel-profile .form-grid.two-col > label:nth-child(5) {
+    grid-column: 2 !important;
+    grid-row: 4 !important;
   }
 }
 
@@ -207,5 +217,6 @@
 
   html:not(.native-app) .member-editor-fields .form-grid.two-col label {
     grid-column: 1 !important;
+    grid-row: auto !important;
   }
 }
