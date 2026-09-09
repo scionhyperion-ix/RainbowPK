@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'rainbow-shell-v34';
+const CACHE_NAME = 'rainbow-shell-v35';
 const APP_SHELL = [
   './',
   './index.html',
@@ -23,6 +23,7 @@ const APP_SHELL = [
   './assets/css/member-view-menu.css?v=3',
   './assets/css/mobile-member-views.css?v=1',
   './assets/css/mobile-members-audit.css?v=1',
+  './assets/css/mobile-members-refresh.css?v=1',
   './assets/css/modal-scroll-lock.css?v=1',
   './assets/css/mobile.css',
   './assets/css/mobile-front-timers.css?v=2',
@@ -52,6 +53,7 @@ const APP_SHELL = [
   './assets/js/multi-cofronter.js?v=1',
   './assets/js/guide-popovers.js?v=3',
   './assets/js/member-view-menu.js?v=1',
+  './assets/js/mobile-members-refresh.js?v=1',
   './assets/js/modal-scroll-lock.js?v=1',
   './assets/js/mobile-member-editor-tabs.js?v=2',
   './assets/js/pwa-widget.js?v=1',
