@@ -1,0 +1,208 @@
+/* Make the four Members view modes visibly distinct on mobile web. */
+@media (max-width: 760px) {
+  /* CARD: roomy, banner-friendly profile cards. */
+  #membersRoute .member-card-grid[data-member-view="cards"] {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="cards"] .member-card {
+    min-height: 98px !important;
+    padding: 14px 15px !important;
+    border-radius: 16px !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="cards"] .member-card-top {
+    gap: 12px !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="cards"] .member-card-avatar {
+    width: 60px !important;
+    height: 60px !important;
+    flex-basis: 60px !important;
+    border-radius: 15px !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="cards"] .member-card-name h3 {
+    font-size: .92rem !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="cards"] .member-card-name p {
+    font-size: .69rem !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="cards"] .member-color-bar {
+    left: 15px !important;
+    right: 15px !important;
+  }
+
+  /* COMPACT: small two-column tiles with reduced secondary information. */
+  #membersRoute .member-card-grid[data-member-view="compact"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 7px !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="compact"] .member-card {
+    min-height: 64px !important;
+    padding: 8px !important;
+    border-radius: 11px !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="compact"] .member-card-banner,
+  #membersRoute .member-card-grid[data-member-view="compact"] .member-card.has-member-banner::before {
+    display: none !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="compact"] .member-card-top {
+    display: grid !important;
+    grid-template-columns: 34px minmax(0, 1fr) !important;
+    gap: 7px !important;
+    align-items: center !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="compact"] .member-card-avatar {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    flex-basis: 34px !important;
+    border-radius: 9px !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="compact"] .member-card-name h3 {
+    font-size: .72rem !important;
+    line-height: 1.15 !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="compact"] .member-card-display-name {
+    display: none !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="compact"] .member-card-name p {
+    margin-top: 2px !important;
+    font-size: .57rem !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="compact"] .member-color-bar {
+    left: 8px !important;
+    right: 8px !important;
+    height: 2px !important;
+  }
+
+  /* LIST: flat, edge-to-edge rows rather than cards. */
+  #membersRoute .member-card-grid[data-member-view="list"] {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="list"] .member-card {
+    display: block !important;
+    min-height: 52px !important;
+    padding: 8px 5px 8px 12px !important;
+    border: 0 !important;
+    border-bottom: 1px solid var(--line) !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="list"] .member-card:hover,
+  #membersRoute .member-card-grid[data-member-view="list"] .member-card:focus-visible {
+    background: color-mix(in srgb, var(--theme-surface-hover) 70%, transparent) !important;
+    transform: none !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="list"] .member-card-banner,
+  #membersRoute .member-card-grid[data-member-view="list"] .member-card.has-member-banner::before {
+    display: none !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="list"] .member-card-top {
+    display: grid !important;
+    grid-template-columns: 38px minmax(0, 1fr) !important;
+    gap: 10px !important;
+    align-items: center !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="list"] .member-card-avatar {
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    flex-basis: 38px !important;
+    border-radius: 10px !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="list"] .member-card-name h3 {
+    font-size: .78rem !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="list"] .member-card-name p {
+    font-size: .6rem !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="list"] .member-color-bar {
+    top: 9px !important;
+    right: auto !important;
+    bottom: 9px !important;
+    left: 2px !important;
+    width: 3px !important;
+    height: auto !important;
+    border-radius: 999px !important;
+  }
+
+  /* CARD TILES: image-first profile cards based on the supplied reference. */
+  #membersRoute .member-card-grid[data-member-view="tiles"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="tiles"] .member-card-tile {
+    display: block !important;
+    min-height: 0 !important;
+    padding: 0 10px 12px !important;
+    border-radius: 14px !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="tiles"] .member-tile-header {
+    margin: 0 -10px 10px !important;
+    padding: 9px 10px 8px !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="tiles"] .member-tile-media {
+    display: block !important;
+    width: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 10px !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="tiles"] .member-tile-avatar,
+  #membersRoute .member-card-grid[data-member-view="tiles"] .member-tile-media .fallback-avatar {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    border-radius: 0 !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="tiles"] .member-color-bar {
+    left: 10px !important;
+    right: 10px !important;
+  }
+}
+
+@media (max-width: 520px) {
+  /* Profile tiles need enough width for the large image and description. */
+  #membersRoute .member-card-grid[data-member-view="tiles"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  #membersRoute .member-card-grid[data-member-view="tiles"] .member-tile-media {
+    aspect-ratio: 4 / 3 !important;
+  }
+}
+
+@media (max-width: 350px) {
+  /* Very narrow phones keep Compact readable rather than crushing two cards. */
+  #membersRoute .member-card-grid[data-member-view="compact"] {
+    grid-template-columns: 1fr !important;
+  }
+}
