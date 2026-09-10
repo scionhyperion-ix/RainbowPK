@@ -9,6 +9,22 @@
     return member?.name || member?.display_name || member?.id || 'Unknown member';
   }
 
+  function memberAccent(member) {
+    const color = String(member?.color || '').trim().replace(/^#/, '');
+    return /^[0-9a-f]{6}$/i.test(color) ? `#${color}` : '';
+  }
+
+  function applyMemberAccent(element, member) {
+    const accent = memberAccent(member);
+    if (!accent) {
+      element.style.removeProperty('--member-accent');
+      element.removeAttribute('data-member-accent');
+      return;
+    }
+    element.style.setProperty('--member-accent', accent);
+    element.dataset.memberAccent = 'true';
+  }
+
   function savedView() {
     const view = localStorage.getItem(VIEW_KEY);
     return VALID_VIEWS.has(view) ? view : 'cards';
@@ -154,9 +170,7 @@
   function appendColorBar(card, member) {
     const bar = document.createElement('div');
     bar.className = 'member-color-bar';
-    bar.style.background = /^[0-9a-f]{6}$/i.test(member.color || '')
-      ? `#${member.color}`
-      : 'var(--accent)';
+    bar.style.background = memberAccent(member) || 'var(--accent)';
     card.append(bar);
   }
 
@@ -164,6 +178,7 @@
     const card = document.createElement('button');
     card.type = 'button';
     card.className = 'member-card';
+    applyMemberAccent(card, member);
     appendMobileBanner(card, member);
     appendStandardIdentity(card, member);
     appendColorBar(card, member);
@@ -175,6 +190,7 @@
     const card = document.createElement('button');
     card.type = 'button';
     card.className = 'member-card member-card-tile';
+    applyMemberAccent(card, member);
 
     const header = document.createElement('div');
     header.className = 'member-tile-header';
