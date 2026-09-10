@@ -40,6 +40,7 @@
   ensureStylesheet('assets/css/multi-cofronter.css?v=1');
   ensureStylesheet('assets/css/guide-popovers.css?v=3');
   ensureStylesheet('assets/css/member-view-menu.css?v=3');
+  ensureStylesheet('assets/css/member-accent.css?v=1');
   ensureStylesheet('assets/css/mobile-member-views.css?v=1');
   ensureStylesheet('assets/css/mobile-members-audit.css?v=1');
   ensureStylesheet('assets/css/mobile-members-refresh.css?v=1');
@@ -54,7 +55,8 @@
   loadScript('assets/js/front-scroll-stability.js?v=2');
   loadScript('assets/js/multi-cofronter.js?v=1');
   loadScript('assets/js/guide-popovers.js?v=3');
-  loadScript('assets/js/member-view-menu.js?v=1');
+  loadScript('assets/js/member-view-menu.js?v=2');
+  loadScript('assets/js/member-accent.js?v=1');
   loadScript('assets/js/mobile-members-refresh.js?v=1');
   loadScript('assets/js/modal-scroll-lock.js?v=1');
 })();
